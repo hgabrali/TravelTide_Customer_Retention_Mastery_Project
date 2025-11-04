@@ -69,3 +69,14 @@ Bu analiz, oturum başına tıklama sayısındaki aykırı değerleri (outliers)
 | **Ortalama (Mean)**| ~18.76 | Ortalama bir oturumda 18-19 tıklama yapılıyor. |
 | **Max** | **2,421** | 🚨 Bu, potansiyel bir **aykırı değer (outlier)** işaretidir. Bir oturumda 2421 tıklama, normal bir kullanıcı davranışı değildir (örneğin, bot veya hatalı kayıt olabilir). |
 | **75%** | 23 | Satırların %75'i 23 veya daha az tıklamaya sahipken, maksimum değer (2421) çok uzaktadır. **Eylem Planı:** Bu aykırı değerleri Feature Engineering aşamasında ele almalıyız. |
+
+### 📊 Tüketici Segmentasyonunda Karşılaştırma
+
+| Özellik | Geleneksel Segmentasyon (Traditional Methods) | Makine Öğrenimi Segmentasyonu (ML-Based Methods) |
+| :--- | :--- | :--- |
+| **Tanım (Yöntem)** | Önceden tanımlanmış iş kuralları (hukuk, coğrafya, demografi) veya pazar araştırması (anketler) ile yapılan kural tabanlı gruplama. | Algoritmaların (KMeans, Hiyerarşik Kümeleme vb.) verideki doğal desenleri otomatik olarak keşfetmesiyle yapılan gruplama. |
+| **Veri Tipi Odak** | Temelde **demografik** (Yaş, Cinsiyet, Gelir) ve **coğrafi** veriler. | Temelde **davranışsal** (Tıklama, Satın Alma Sıklığı, Harcama) ve **Feature Engineering** ile üretilmiş veriler. |
+| **Grup Sayısı (k)** | Analist tarafından **öznel** (subjective) olarak belirlenir (Örn: 4 grup olmalı). | **Nesnel** (objective) metrikler (Örn: Dirsek Metodu, Silhouette Skoru) veya iş hedeflerine göre belirlenir. |
+| **Esneklik ve Dinamiklik** | **Düşük.** Gruplar statiktir ve değişen müşteri davranışına yavaş adapte olur. | **Yüksek.** Gruplar dinamik olarak değişen veri desenlerini yansıtır ve hızla adapte edilebilir. |
+| **Karmaşıklık (Boyut)** | **Düşük boyutlu** (2-4 özellik) verilerde en etkilidir. İlişkiler genellikle **basittir** (örneğin, 30 yaş üstü + şehirli). | **Yüksek boyutlu** (10+ özellik) verilerde ve karmaşık, doğrusal olmayan ilişkilerde güçlüdür. |
+| **Temel Çıkarım** | **Neden-Sonuç İlişkisi** ("Bu müşteriler bu şehirde yaşadıkları için bu ürünü alıyor"). | **Birliktelik** ("Bu müşteriler aynı anda bu 5 davranışı sergiliyor"). |
