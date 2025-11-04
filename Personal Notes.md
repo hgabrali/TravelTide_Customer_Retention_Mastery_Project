@@ -70,6 +70,20 @@ Bu analiz, oturum başına tıklama sayısındaki aykırı değerleri (outliers)
 | **Max** | **2,421** | 🚨 Bu, potansiyel bir **aykırı değer (outlier)** işaretidir. Bir oturumda 2421 tıklama, normal bir kullanıcı davranışı değildir (örneğin, bot veya hatalı kayıt olabilir). |
 | **75%** | 23 | Satırların %75'i 23 veya daha az tıklamaya sahipken, maksimum değer (2421) çok uzaktadır. **Eylem Planı:** Bu aykırı değerleri Feature Engineering aşamasında ele almalıyız. |
 
+
+### 🎯 Customer Segmentation Comparison: Traditional vs. ML Methods
+
+This table outlines the key methodological differences between conventional, rule-based segmentation and data-driven clustering methods required for the TravelTide project.
+
+| Feature | 🏛️ Traditional Segmentation (Rule-Based) | 🤖 Machine Learning Segmentation (Clustering) |
+| :--- | :--- | :--- |
+| **Definition (Method)** | Grouping based on predefined business rules (demographics, geography) or subjective market research (surveys). | Grouping where algorithms (KMeans, Hierarchical Clustering, etc.) automatically discover natural patterns and clusters within the data. |
+| **Data Focus** | Primarily **demographic** (Age, Gender, Income) and **geographic** data. | Primarily **behavioral** (Clicks, Purchase Frequency, Spending) and features derived through **Feature Engineering**. |
+| **Group Count (k)** | **Subjectively** determined by the analyst or business need (e.g., must be 4 groups). | **Objectively** determined using metrics (e.g., Elbow Method, Silhouette Score) or driven by specific business objectives. |
+| **Flexibility & Dynamics**| **Low.** Groups are static and slow to adapt to changing customer behavior or market trends. | **High.** Groups are dynamic, reflecting complex, evolving data patterns, and can be rapidly adjusted. |
+| **Complexity (Dimensionality)** | Most effective in **low-dimensional** (2-4 features) datasets. Relationships found are often **simple** (e.g., over 30 + urban resident). | Strong in **high-dimensional** (10+ features) data, capable of identifying complex, non-linear relationships. |
+| **Core Insight** | **Causality** ("Customers buy this product BECAUSE they live in this region."). | **Association/Clustering** ("These customers exhibit 5 distinct behaviors concurrently."). |
+
 ### 📊 Tüketici Segmentasyonunda Karşılaştırma
 
 | Özellik | Geleneksel Segmentasyon (Traditional Methods) | Makine Öğrenimi Segmentasyonu (ML-Based Methods) |
