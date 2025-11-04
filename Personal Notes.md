@@ -48,3 +48,24 @@ Bu tablo, oturum verileri (`df_sessions`) üzerindeki özet istatistiklerden eld
 | **flight_discount_amount (Mean)** | 0.139765 | — | Ortalama uygulanan indirim oranı yaklaşık %14. |
 | **hotel_discount_amount (Mean)** | 0.110950 | — | Ortalama uygulanan indirim oranı yaklaşık %11. |
 | **Min Değerler** | 0.05 | Min indirim oranının 0.05 (%5) olması, indirimlerin 0 (sıfır) değil, belirli bir minimum değere sahip olduğunu gösteriyor. | Bu, indirim mekanizmasının yapısını anlamak için önemlidir. NaN'ların 0 olması gerektiği varsayımımızı güçlendirir. |
+
+### 🔎 df_sessions: Sayısal İstatistik Analizi
+
+#### 1. Sayısal Sütunların Eksiksizliği
+
+| Sütun | Satır Sayısı (Count) | Toplam Satır | Eksik Veri Durumu |
+| :--- | :--- | :--- | :--- |
+| **user_id** | 5,408,063 | 5,408,063 | ✅ Tamam (No Missing Data) |
+| **page_clicks** | 5,408,063 | 5,408,063 | ✅ Tamam (No Missing Data) |
+| **İndirim Miktarları** | < 1 milyon | 5,408,063 | ⚠️ Büyük Eksiklik (Imputation Gerekli) |
+
+#### 2. 🖱️ `page_clicks` Sütunu Analizi
+
+Bu analiz, oturum başına tıklama sayısındaki aykırı değerleri (outliers) ve kullanıcı davranışını ortaya koymaktadır.
+
+| İstatistik | Değer | İş Çıkarımı |
+| :--- | :--- | :--- |
+| **Min** | 0 | Bazı oturumların **hiç tıklama yapmadan** sona erdiğini gösterir. Bu, hemen çıkış (bounce) veya hata nedeniyle oluşan oturumlar olabilir. |
+| **Ortalama (Mean)**| ~18.76 | Ortalama bir oturumda 18-19 tıklama yapılıyor. |
+| **Max** | **2,421** | 🚨 Bu, potansiyel bir **aykırı değer (outlier)** işaretidir. Bir oturumda 2421 tıklama, normal bir kullanıcı davranışı değildir (örneğin, bot veya hatalı kayıt olabilir). |
+| **75%** | 23 | Satırların %75'i 23 veya daha az tıklamaya sahipken, maksimum değer (2421) çok uzaktadır. **Eylem Planı:** Bu aykırı değerleri Feature Engineering aşamasında ele almalıyız. |
