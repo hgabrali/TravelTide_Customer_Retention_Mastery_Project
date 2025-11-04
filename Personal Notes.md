@@ -1,5 +1,23 @@
 ## 📝 Week 1: Raw Data Inspection and Initial Cleaning
 
+## 🎯 Project Goals and Objectives
+
+The primary objective of this project is to develop a data-driven customer retention strategy for TravelTide by leveraging advanced analytical and Machine Learning techniques.
+
+### I. Data Validation and Foundation
+1.  **Establish Data Integrity:** Successfully connect to the PostgreSQL database, fetch raw data, and perform comprehensive cleaning (e.g., date conversion, imputing missing discount values with 0) to ensure high data quality.
+2.  **Generate Core Metrics (Feature Engineering):** Engineer meaningful user-level attributes (e.g., tenure, booking frequency, discount sensitivity) from session-level data to enable robust behavioral analysis.
+
+### II. Customer Segmentation and Insight Generation
+3.  **Validate Business Hypothesis:** Use clustering methods (e.g., KMeans) to objectively test Elena Tarrant's hypothesis regarding the existence of distinct customer segments sensitive to specific rewards/perks.
+4.  **Identify Meaningful Segments:** Divide the entire customer base into distinct, interpretable groups based on behavioral patterns and discount sensitivity (ML-Based Segmentation).
+
+### III. Strategic Recommendation and Delivery
+5.  **Assign Optimal Perks:** For each identified customer segment, assign the corresponding "favorite perk" from the proposed list (e.g., Free Cancellation, Free Hotel Meal).
+6.  **Develop Actionable Strategy:** Deliver a clear, data-backed strategic recommendation to the Head of Marketing (Elena Tarrant) on how to personalize rewards invitations to maximize customer sign-ups and improve long-term retention.
+
+
+
 ### Objective
 Before proceeding to Feature Engineering, the goal of this stage was to understand the structure, scale, and quality of the raw data fetched from the TravelTide PostgreSQL database.
 
