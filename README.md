@@ -1,11 +1,11 @@
 
 ## 🏆 The Mastery Project: End-to-End Data Challenge
 
-This Mastery Project served as the culmination of my analytical expertise. I successfully tackled a complex, real-world data challenge engineered to simulate the high-stakes decision-making required in a professional data environment.
+### 🎯 The Mastery Project: Strategic Execution Summary
 
-My execution involved a comprehensive, end-to-end workflow: I rigorously conducted Data Exploration (EDA), implemented sophisticated Feature Engineering, delivered ML-based Customer Segmentation, and developed Actionable Strategic Recommendations. This effort profoundly reinforced my technical prowess and problem-solving agility.
+This **Mastery Project** served as the culmination of my analytical expertise. I successfully tackled a complex, real-world data challenge engineered to simulate the high-stakes decision-making required in a professional data environment.
 
-This project is structured to mirror industry workflows, where you will go from understanding the problem to presenting a well-structured, data-backed strategy.
+My execution involved a comprehensive, end-to-end workflow: I rigorously conducted **Data Exploration (EDA) 🔎**, implemented sophisticated **Feature Engineering ⚙️**, delivered **ML-based Customer Segmentation 🤖**, and developed **Actionable Strategic Recommendations 📈**. This effort profoundly reinforced my technical prowess and problem-solving agility.
 
 ### Course Structure Overview
 * **Week 1: Project Exploration:** Familiarize yourself with the dataset and business context.
