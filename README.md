@@ -34,7 +34,7 @@ The primary objective of this project is to develop a data-driven customer reten
 
 
 
-## ✈️ Company: The TravelTide Company
+## ✈️ [Company: The TravelTide Company](https://www.travel-tide.com/)
 
 ### Context: Poor Customer Retention
 E-booking startup TravelTide has maintained a hyper-focus on building the biggest travel inventory and making it easily searchable. Because of this narrow focus, certain aspects of the TravelTide customer experience are underdeveloped, resulting in **poor customer retention**. CEO Kevin Talanick is motivated to retain and add value to existing customers with a Marketing strategy built on a solid understanding of customer behavior.
