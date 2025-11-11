@@ -135,4 +135,29 @@ In a Big Data context (specifically when using Spark SQL/PySpark), the following
 | **Aggregation Functions** (`AVG`, `SUM`, `COUNT`, `MAX`) | Produces summary statistics over groups of data (e.g., finding the total number of clicks for each user using `GROUP BY user_id`). | **Analysis Question: Feature Engineering:** Do I need to summarize a user's behavior into a single row? *(If yes, use `SUM/AVG`)*. |
 | **CAST / DATE Functions** (`CAST()`, `DATE_FORMAT()`) | Used for data type conversion and processing date-time data (e.g., "using the `birthdate` column to calculate age"). | **Data Quality Check:** Are the column data types correct? Do I need to derive new features like day, month, or year from a timestamp like `session_start`? |
 
+---
 
+## 💾 SQL Code Analysis: Creating the Analytic Base Table (ABT) 📊
+
+This PySpark SQL code utilizes the `CREATE OR REPLACE TABLE` command to perform extensive **data joining** (Feature Selection and Data Integration) across four different tables, resulting in a unified dataset ready for **Feature Engineering** and **ML-based Customer Segmentation**.
+
+| Component | Function / Command 💻 | Technical Importance & Role in Project 🌟 |
+| :--- | :--- | :--- |
+| **Header** | `%%sql`<br>`CREATE OR REPLACE TABLE sessions_joined AS` | **Data Persistence and SQL Access.** Instructs the PySpark environment to execute the code as a SQL query and save the result as a new, queryable table named `sessions_joined`. This table serves as the **Analytic Base Table (ABT)**. |
+| **SELECT Clause** | `s.session_id, s.user_id, ...`<br>*(Includes columns from s, u, f, h)* | **Feature Selection and Integration.** Explicitly selects all necessary raw features from the four separate tables. This step standardizes the features required for ML models (e.g., user context, session behavior, and transaction details). |
+| **FROM Clause** | `FROM sessions_spark s` | **Defining Granularity.** Sets the `sessions_spark` table as the base of the join operation. The resulting ABT will therefore be at the **session level**. |
+| **INNER JOIN** | `INNER JOIN users_spark u ON s.user_id = u.user_id` | **Ensuring Core Context.** Guarantees that every session included in the ABT is linked to a valid user record. The user's demographic and static data (`u.*` columns) are vital for segmentation. |
+| **LEFT JOIN** | `LEFT JOIN flights_spark f ON s.trip_id = f.trip_id`<br>`LEFT JOIN hotels_spark h ON s.trip_id = h.trip_id` | **Preserving Non-Transaction Data (Segmentation Focus).** This is crucial: <br> 1. It preserves ALL sessions (including those where no booking occurred).<br> 2. If a session has no matching flight/hotel data, the transactional columns (`f.*`, `h.*`) will contain `NULL`. <br> **Importance:** This `NULL` value itself is a key feature, indicating browsing-only behavior, which is essential for defining customer segments. |
+| **Column Alias** | `h.hotel_price_per_room_night_usd AS hotel_per_room_usd` | **Data Cleaning and Standardization.** Renames a complex or long column name to a simpler, standardized format (`hotel_per_room_usd`) for ease of use in subsequent Feature Engineering and modeling steps. |
+
+---
+
+### 📝 Summary of Importance
+
+This single SQL block is the most fundamental step in your workflow, achieving:
+
+1.  **Data Integration:** Merging disparate data sources into a cohesive analytical view.
+2.  **Scalability:** Executing this complex join efficiently using Spark's distributed computing power.
+3.  **Foundation for ML:** Creating the definitive input table (ABT) required for all subsequent **Feature Engineering** and **ML-based Customer Segmentation** steps.
+
+The `sessions_joined` table is now ready to begin generating derived features (Feature Engineering). Would you like to review the next code block for Feature Engineering steps?
