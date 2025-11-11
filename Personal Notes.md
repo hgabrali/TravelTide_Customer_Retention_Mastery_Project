@@ -154,16 +154,25 @@ Büyük veri bağlamında (özellikle Spark SQL/PySpark kullanırken) işinize e
 
 <img width="644" height="643" alt="image" src="https://github.com/user-attachments/assets/9d851284-dba5-4e3b-bcaf-1f6a59ed24af" />
 
-## 🛠️ Veri Bilimi Araç Kiti Karşılaştırması ve Proje İşlevselliği 🚀
+## 💾 SQL Kod Analizi: Analitik Üs Tablosu (ABT) Oluşturma 📊
 
-Aşağıdaki tablo, kullandığınız araçların **teknik amacını**, projenizdeki **belirli işlevlerini** ve **önemini** detaylandırmaktadır.
+Bu PySpark SQL kodu, dört farklı tablo üzerinde kapsamlı **veri birleştirme** (Özellik Seçimi ve Veri Entegrasyonu) gerçekleştirmek için `CREATE OR REPLACE TABLE` komutunu kullanır ve sonuç olarak **Özellik Mühendisliği (Feature Engineering)** ve **ML tabanlı Müşteri Segmentasyonu** için hazır, birleşik bir veri seti oluşturur.
 
-| Araç 🔧 | Teknik Amacı 💡 | Proje İşlevi ⚙️ | Proje Önemi 🌟 |
-| :--- | :--- | :--- | :--- |
-| **Python** | **Yüksek Seviyeli Programlama Dili.** Tüm hesaplama görevlerini yürütmek ve kütüphaneleri entegre etmek için temel ortamı ve sözdizimini sağlar. | **Birincil Yürütme Ortamı.** Tüm ETL, EDA, Özellik Mühendisliği ve Makine Öğrenimi komut dosyalarını yazmak için temel dil olarak hizmet etti. | **Hayatı Kritik (Crucial).** Tüm analitik iş akışının **bel kemiğidir**; kütüphane entegrasyonunu ve algoritmik uygulamayı mümkün kılar. |
-| **SQLAlchemy** | **SQL Araç Kiti ve Nesne-İlişkisel Eşleyici (ORM).** İlişkisel veritabanlarıyla Python nesneleri kullanarak etkileşimi kolaylaştırır ve tutarlı bir arayüz sağlar. | **Veritabanı Bağlantısı & Veri Alımı.** Veritabanına sağlam bağlantılar kurmak (örn. PostgreSQL'e) ve ham proje verisini soyut bir şekilde sorgulamak için kullanılır. | **Yüksek.** İş akışının **ilk adımı** için temeldir – gerekli, genellikle büyük, gerçek dünya veri setini güvenli ve verimli bir şekilde almayı sağlar. |
-| **psycopg2** | **PostgreSQL Veritabanı Adaptörü.** Python'ın özellikle PostgreSQL veritabanları ile iletişim kurmasını sağlayan düşük seviyeli bir kütüphanedir. | **Doğrudan Veritabanı Bağlantısı.** Ham veriyi almak için Python'ı PostgreSQL veritabanı motoruna bağlayan temel mekanizmayı sağladı. | **Yüksek.** Ham veri bir PostgreSQL sunucusunda bulunuyorsa, kararlı, yerel bir bağlantı sağlayarak veri alımı için bir **ön koşuldur**. |
-| **Pandas** | **Veri Manipülasyonu ve Analiz Kütüphanesi.** Yapılandırılmış verilerle çalışmak için hızlı, esnek ve güçlü veri yapıları (başta **DataFrame**) sunar. | **Temel Veri İşlemleri.** **Veri Keşfi (EDA)**, temizleme, dönüştürme, eksik değer doldurma ve **Özellik Mühendisliğinin** tüm adımları için kullanıldı. | **Kritik.** Veri hazırlama için **iş gücü**; karmaşık, gerçek dünya veri zorluğunu ML modellemesi için yönetilebilir hale getirdi. |
-| **NumPy** | **Sayısal Hesaplama Kütüphanesi.** Büyük, çok boyutlu diziler ve matrisler için destek ile birlikte geniş bir yüksek seviyeli matematiksel fonksiyon koleksiyonu sağlar. | **Vektörizasyon ve Matematiksel İşlemler.** Pandas'ın işlevselliğini destekler ve ML modelleri için yüksek hızlı dizi işlemleri, hesaplamalar ve özellik vektörize etme için doğrudan kullanıldı. | **Yüksek.** İstatistiksel analiz ve makine öğrenimi algoritmaları için gerekli olan **hesaplama verimliliğini** ve veri yapısı temelini (diziler) sağlar. |
-| **matplotlib.pyplot** | **2D Çizim Kütüphanesi.** Python'da statik, animasyonlu ve etkileşimli görselleştirmeler oluşturmak için kapsamlı bir araçtır. | **Veri Keşfi (EDA) & İletişim.** Histogramlar, dağılım grafikleri, kutu grafikleri ve stratejik öneri için ortaya çıkan **Müşteri Segmentlerinin** görselleştirmelerini oluşturmak için kullanıldı. | **Çok Yüksek.** Verinin **dağılımını anlamak (EDA)** ve temel içgörüleri ve segmentasyon sonuçlarını paydaşlara **iletişim kurmak** için hayati öneme sahiptir. |
+| Bileşen | Fonksiyon / Komut 💻 | Projedeki Teknik Önemi & Rolü 🌟 |
+| :--- | :--- | :--- |
+| **Başlık (Header)** | `%%sql`<br>`CREATE OR REPLACE TABLE sessions_joined AS` | **Veri Kalıcılığı ve SQL Erişimi.** PySpark ortamına kodu bir SQL sorgusu olarak çalıştırmasını ve sonucu `sessions_joined` adında yeni, sorgulanabilir bir tablo olarak kaydetmesini söyler. Bu tablo, **Analitik Üs Tablosu (ABT)** olarak hizmet eder. |
+| **SELECT Clause** | `s.session_id, s.user_id, ...`<br>*(s, u, f, h'den sütunlar içerir)* | **Özellik Seçimi ve Entegrasyonu.** Dört ayrı tablodan gerekli tüm ham özellikleri açıkça seçer. Bu adım, ML modelleri için gerekli olan özellikleri (örneğin kullanıcı bağlamı, oturum davranışı ve işlem detayları) standartlaştırır. |
+| **FROM Clause** | `FROM sessions_spark s` | **Ayrıntı Düzeyini Tanımlama.** Birleştirme işleminin temeli olarak `sessions_spark` tablosunu ayarlar. Bu nedenle ortaya çıkan ABT, **oturum düzeyinde** olacaktır. |
+| **INNER JOIN** | `INNER JOIN users_spark u ON s.user_id = u.user_id` | **Temel Bağlamı Sağlama.** ABT'ye dahil edilen her oturumun geçerli bir kullanıcı kaydına bağlı olmasını garanti eder. Kullanıcının demografik ve statik verileri (`u.*` sütunları) segmentasyon için hayati öneme sahiptir. |
+| **LEFT JOIN** | `LEFT JOIN flights_spark f ON s.trip_id = f.trip_id`<br>`LEFT JOIN hotels_spark h ON s.trip_id = h.trip_id` | **İşlem Dışı Verileri Korumak (Segmentasyon Odağı).** Bu çok önemlidir:<br> 1. TÜM oturumları korur (hiçbir rezervasyonun gerçekleşmediği oturumlar dahil).<br> 2. Bir oturumun eşleşen uçuş/otel verisi yoksa, işlem sütunları (`f.*`, `h.*`) `NULL` içerecektir.<br>**Önemi:** Bu `NULL` değerinin kendisi, segmentleri tanımlamak için gerekli olan yalnızca göz atma davranışını gösteren önemli bir özelliktir. |
+| **Sütun Takma Adı** | `h.hotel_price_per_room_night_usd AS hotel_per_room_usd` | **Veri Temizleme ve Standardizasyon.** Sonraki Özellik Mühendisliği ve modelleme adımlarında kullanım kolaylığı için karmaşık veya uzun bir sütun adını daha basit, standartlaştırılmış bir formata (`hotel_per_room_usd`) yeniden adlandırır. |
 
+---
+
+### 📝 Önem Özeti
+
+Bu tek SQL bloğu, iş akışınızdaki **en temel adımdır** ve şunları sağlar:
+
+1.  **Veri Entegrasyonu:** Farklı veri kaynaklarını tutarlı bir analitik görünüme birleştirir.
+2.  **Ölçeklenebilirlik:** Bu karmaşık birleştirmeyi Spark'ın dağıtık hesaplama gücünü kullanarak verimli bir şekilde yürütür.
+3.  **ML İçin Temel:** Sonraki tüm **Özellik Mühendisliği** ve **ML tabanlı Müşteri Segmentasyonu** adımları için gerekli olan nihai giriş tablosunu (ABT) oluşturur.
