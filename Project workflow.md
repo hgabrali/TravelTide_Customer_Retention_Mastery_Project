@@ -160,4 +160,4 @@ This single SQL block is the most fundamental step in your workflow, achieving:
 2.  **Scalability:** Executing this complex join efficiently using Spark's distributed computing power.
 3.  **Foundation for ML:** Creating the definitive input table (ABT) required for all subsequent **Feature Engineering** and **ML-based Customer Segmentation** steps.
 
-The `sessions_joined` table is now ready to begin generating derived features (Feature Engineering). Would you like to review the next code block for Feature Engineering steps?
+The `sessions_joined` table is now ready to begin generating derived features (Feature Engineering). 
