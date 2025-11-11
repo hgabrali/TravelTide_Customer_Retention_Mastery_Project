@@ -112,3 +112,8 @@ This table outlines the key methodological differences between conventional, rul
 | **Esneklik ve Dinamiklik** | **Düşük.** Gruplar statiktir ve değişen müşteri davranışına yavaş adapte olur. | **Yüksek.** Gruplar dinamik olarak değişen veri desenlerini yansıtır ve hızla adapte edilebilir. |
 | **Karmaşıklık (Boyut)** | **Düşük boyutlu** (2-4 özellik) verilerde en etkilidir. İlişkiler genellikle **basittir** (örneğin, 30 yaş üstü + şehirli). | **Yüksek boyutlu** (10+ özellik) verilerde ve karmaşık, doğrusal olmayan ilişkilerde güçlüdür. |
 | **Temel Çıkarım** | **Neden-Sonuç İlişkisi** ("Bu müşteriler bu şehirde yaşadıkları için bu ürünü alıyor"). | **Birliktelik** ("Bu müşteriler aynı anda bu 5 davranışı sergiliyor"). |
+
+
+<img width="563" height="672" alt="image" src="https://github.com/user-attachments/assets/b8e82b56-513b-4ec9-b081-a01a424aea6f" />
+
+
