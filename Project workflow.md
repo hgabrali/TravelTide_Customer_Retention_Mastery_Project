@@ -193,3 +193,100 @@ This step is performed after the heavy **data integration, filtering, and aggreg
 | **`df = sessions_filtered_pd`** | **Reassignment/Alias Creation.** Assigns the existing Pandas DataFrame object, which was created by fetching the final, filtered Spark results, to a simpler alias, `df`. | **Simplification.** Data Scientists typically use the variable name `df` (DataFrame) for the primary working dataset in Pandas notebooks. This makes the code readable and consistent for the local analysis phase. |
 | **`df.head()`** | **Data Inspection.** Displays the first 5 rows of the Pandas DataFrame. | **Validation.** Confirms that the data transfer from Spark to the Pandas environment (`sessions_filtered_pd`) was successful and allows for a quick visual check of the final structure, features, and data types before the detailed analysis begins. |
 | **Why Switch Back?** | **Downsizing and Local Functionality.** The `sessions_filtered_pd` object is the result of the prior complex SQL operations (filtering, joining, potentially aggregation) executed in Spark, which resulted in a much smaller, ready-to-analyze dataset. | **Efficiency and Tool Use.** <br> 1. **Pandas Performance:** For DataFrames that fit into memory (after filtering/aggregation), Pandas is often faster than Spark for single-machine operations (e.g., specific plotting, simple feature engineering). <br> 2. **Library Compatibility:** Many specialized ML tools (like some parts of Scikit-learn or specific visualization libraries) **require** Pandas DataFrames as input and do not directly accept Spark DataFrames. |
+
+# 📊 Data Dictionary and Initial Data Quality Assessment (ABT) 🔎
+The dataset contains 49,211 entries and 41 columns derived from the filtered, joined sessions. The analysis below highlights data types and critical missing value patterns crucial for Feature Engineering (FE).
+
+
+## 📊 Data Dictionary and Initial Data Quality Assessment (ABT) 🔎
+
+The following table summarizes the structure, data types, and missing value percentages for the 41 columns in your Analytic Base Table.
+
+| # | Column Name | Non-Null Count | Data Type | Missing (%) | Feature Category 🏷️ |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **0** | `session_id` | 49211 | `object` | 0% | Session ID |
+| **1** | `user_id` | 49211 | `int64` | 0% | User ID |
+| **2** | `trip_id` | 16702 | `object` | 66.1% | Transaction ID (Partial) |
+| **3** | `session_start` | 49211 | `datetime64[ns]` | 0% | Session Timing |
+| **4** | `session_end` | 49211 | `datetime64[ns]` | 0% | Session Timing |
+| **5** | `page_clicks` | 49211 | `int64` | 0% | Behavioral Metric |
+| **6** | `flight_discount` | 49211 | `bool` | 0% | Discount Flag |
+| **7** | `flight_discount_amount` | 8282 | `float64` | **83.2%** | Discount Detail |
+| **8** | `hotel_discount` | 49211 | `bool` | 0% | Discount Flag |
+| **9** | `hotel_discount_amount` | 6205 | `float64` | **87.4%** | Discount Detail |
+| **10** | `flight_booked` | 49211 | `bool` | 0% | Booking Flag |
+| **11** | `hotel_booked` | 49211 | `bool` | 0% | Booking Flag |
+| **12** | `cancellation` | 49211 | `bool` | 0% | Outcome Variable |
+| **13** | `birthdate` | 49211 | `datetime64[ns]` | 0% | User Demographics |
+| **14** | `gender` | 49211 | `object` | 0% | User Demographics |
+| **15** | `married` | 49211 | `bool` | 0% | User Demographics |
+| **16** | `has_children` | 49211 | `bool` | 0% | User Demographics |
+| **17** | `home_country` | 49211 | `object` | 0% | Location (Origin) |
+| **18** | `home_city` | 49211 | `object` | 0% | Location (Origin) |
+| **19** | `home_airport` | 49211 | `object` | 0% | Location (Origin) |
+| **20** | `home_airport_lat` | 49211 | `float64` | 0% | Location (Origin) |
+| **21** | `home_airport_lon` | 49211 | `float64` | 0% | Location (Origin) |
+| **22** | `sign_up_date` | 49211 | `datetime64[ns]` | 0% | User Timing |
+| **23** | `origin_airport` | 14270 | `object` | **71.0%** | Flight Details |
+| **24** | `destination` | 14270 | `object` | **71.0%** | Flight Details |
+| **25** | `destination_airport` | 14270 | `object` | **71.0%** | Flight Details |
+| **26** | `seats` | 14270 | `float64` | **71.0%** | Flight Details |
+| **27** | `return_flight_booked` | 14270 | `object` | **71.0%** | Flight Details |
+| **28** | `departure_time` | 14270 | `datetime64[ns]` | **71.0%** | Flight Timing |
+| **29** | `return_time` | 13652 | `datetime64[ns]` | **72.2%** | Flight Timing (Missing Return) |
+| **30** | `checked_bags` | 14270 | `float64` | **71.0%** | Flight Details |
+| **31** | `trip_airline` | 14270 | `object` | **71.0%** | Flight Details |
+| **32** | `destination_airport_lat` | 14270 | `float64` | **71.0%** | Flight Location |
+| **33** | `destination_airport_lon` | 14270 | `float64` | **71.0%** | Flight Location |
+| **34** | `base_fare_usd` | 14270 | `float64` | **71.0%** | Flight Transaction |
+| **35** | `hotel_name` | 14726 | `object` | **70.1%** | Hotel Details |
+| **36** | `nights` | 14726 | `float64` | **70.1%** | Hotel Details |
+| **37** | `rooms` | 14726 | `float64` | **70.1%** | Hotel Details |
+| **38** | `check_in_time` | 14726 | `datetime64[ns]` | **70.1%** | Hotel Timing |
+| **39** | `check_out_time` | 14726 | `datetime64[ns]` | **70.1%** | Hotel Timing |
+| **40** | `hotel_price_per_room_night_usd` | 14726 | `float64` | **70.1%** | Hotel Transaction |
+
+
+## 🛑 Data Quality and Feature Engineering Insights ⚙️
+
+This section summarizes the key findings regarding data quality from the initial inspection of the Analytic Base Table (ABT) and outlines the strategy for **Feature Engineering (FE)**.
+
+---
+
+### 1. Missing Value Strategy (Crucial for FE) 🔍
+
+The significant amount of missing data (around **70-87%**) is **expected** and reflects the inherent nature of the travel booking business (sessions where no purchase was made):
+
+* **71.0% Missing Flight Details:** This strongly correlates with sessions where the user **did not book or search for a flight** (or did not complete the transaction).
+* **70.1% Missing Hotel Details:** This correlates with sessions where the user **did not book or search for a hotel**.
+
+> **Imputation Strategy:** The `NULL` values here are **not errors**; they represent the **absence of a transaction**. For Feature Engineering, these values should typically be imputed with **zero (0)** for numerical columns (like `base_fare_usd`, `nights`, `rooms`) and `False` or a specific string for categorical/boolean columns.
+
+### 2. Time-Based Feature Creation 📅
+
+The numerous `datetime64[ns]` columns are ideal for creating new, high-value temporal features that capture user and session dynamics:
+
+* **User Tenure:** Calculate user age/tenure from `birthdate` and `sign_up_date`.
+* **Session Duration:** Calculate the time difference: `session_end` - `session_start`.
+* **Trip Length:** Calculate trip duration from `check_out_time` - `check_in_time` or `return_time` - `departure_time`.
+* **Time of Day/Week:** Extract hour, day of the week, or month from `session_start` to capture **behavioral seasonality**.
+
+### 3. Data Type Consistency ✅
+
+* All date/time fields are correctly parsed as `datetime64[ns]`, which facilitates the time-based calculations outlined above.
+* Boolean fields (`bool`) are correctly recognized, minimizing memory usage and ensuring efficient storage.
+
+## 📈 Statistical Analysis of Key Features (`df.describe()`) 🔎
+
+This analysis is based on the descriptive statistics of the **Analytic Base Table (ABT)**, highlighting central tendencies, spread, and potential issues for selected numerical and datetime columns across the 49,211 entries.
+
+| Feature Category | Column Name | Key Statistical Findings 💡 | Analytical Insights for Feature Engineering (FE) 🚀 |
+| :--- | :--- | :--- | :--- |
+| **Identifiers** | `user_id` | **Mean:** 545,202. **Std:** 64,640. | The IDs are randomly assigned and sequential, serving only as a unique key. The standard deviation confirms a broad distribution across the user base. |
+| **Session Timing** | `session_start`<br>`session_end` | **Min:** 2023-01-04. **Max:** 2023-07-28. <br> **Mean Time:** Approx. 11:24 (start) to 11:28 (end). | **Timing is Key for FE:** All sessions are concentrated within a recent period (Jan to Jul 2023), confirming the temporal filtering was successful. The short mean duration suggests most sessions are fast browsing or quick transactions. |
+| **Behavioral** | `page_clicks` | **Min:** 1. **Max:** 566. <br> **Mean:** 17.58. **Std:** 21.46. <br> **75th Percentile:** 22.0. | **High Skew and Outliers:** The max of 566 is significantly higher than the 75th percentile (22.0). This indicates a **highly skewed distribution** with a few sessions having extreme click counts (potential power users or bots). **FE Note:** Log transformation might be required before modeling. |
+| **Discount Amounts** | `flight_discount_amount`<br>`hotel_discount_amount` | **Mean:** ~0.14 (14%) and ~0.11 (11%). <br> **Max:** 0.60 (60%) and 0.45 (45%). <br> **Count:** Significantly lower than 49,211. | **Missing Value Confirmation:** The `count` confirms that these columns have substantial missing values (as expected from the Data Dictionary), as they are only present when a discount was actually applied. **FE Note:** Missing values should be imputed with 0 to denote "no discount applied". |
+| **Demographics** | `birthdate` | **Min:** 1935-05-10. **Max:** 2006-12-28. | **Requires Feature Engineering:** The raw `birthdate` is not useful for modeling. It must be converted into **User Age** (e.g., current year - birth year) or **Age Group** before use. |
+| **Location** | `home_airport_lat`<br>`home_airport_lon` | **Mean Lat/Lon:** 38.4 / -94.1. **Std:** 6.1 / 18.0. | **Geographic Spread:** The standard deviations are relatively high, indicating that users are spread across diverse locations. **FE Note:** These can be used directly or converted into distance-based features later. |
+| **User Timing** | `sign_up_date` | **Min:** 2021-07-22. **Max:** 2023-05-18. | **Requires Feature Engineering:** Must be converted into **User Tenure** (e.g., how long the user has been registered as of the session date) for use in segmentation. |
+| **Transaction** | `seats` | **Count:** Low (14,270). **Max:** 8.0. **75th Percentile:** 1.0. | **Transaction Frequency:** The low count confirms this detail is only available for booked flights. The mean and median (1.0) suggest most transactions are for a single traveler. The max of 8 is a potential outlier (group booking). |
