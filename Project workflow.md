@@ -134,3 +134,5 @@ In a Big Data context (specifically when using Spark SQL/PySpark), the following
 | **WINDOW Functions** (`ROW_NUMBER()`, `LAG()`, `OVER (PARTITION BY...)`) | Allows for sorting, calculating cumulative sums, or accessing preceding/following rows within specific groups (`partition`) instead of looking at the entire table. | **Analysis Question:** "I need to find the last 3 flights booked by each user" or "I need to calculate monthly cumulative sales." |
 | **Aggregation Functions** (`AVG`, `SUM`, `COUNT`, `MAX`) | Produces summary statistics over groups of data (e.g., finding the total number of clicks for each user using `GROUP BY user_id`). | **Analysis Question: Feature Engineering:** Do I need to summarize a user's behavior into a single row? *(If yes, use `SUM/AVG`)*. |
 | **CAST / DATE Functions** (`CAST()`, `DATE_FORMAT()`) | Used for data type conversion and processing date-time data (e.g., "using the `birthdate` column to calculate age"). | **Data Quality Check:** Are the column data types correct? Do I need to derive new features like day, month, or year from a timestamp like `session_start`? |
+
+
