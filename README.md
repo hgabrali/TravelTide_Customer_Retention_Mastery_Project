@@ -68,7 +68,7 @@ In each of the four weeks, we will get one step further in our goal to help Elen
 * **Goal:** Create an executive summary and slides of the customer analysis results. Describe the characteristics (behavior, preferences) of each customer group/cluster.
 * **Deliverables:** Include recommendations on how to measure the success of the customer analysis in the upcoming months. Use data storytelling principles and good visualizations (bar plot, scatter plot, radar plot, etc.).
 
- [Data Science Toolkit Comparison and Project Functionality](
+ [Data Science Toolkit Comparison and Project Functionality](https://github.com/hgabrali/TravelTide_Customer_Retention_Mastery_Project/blob/main/Project%20workflow.md)
 
 # SILMEYI UNUTMA BU GÖRSELI:
 <img width="631" height="425" alt="image" src="https://github.com/user-attachments/assets/031fa417-4f99-4475-a6ce-f18f4be1902d" />
