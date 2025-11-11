@@ -149,3 +149,8 @@ Büyük veri bağlamında (özellikle Spark SQL/PySpark kullanırken) işinize e
 | **WINDOW Fonksiyonları** (`ROW_NUMBER()`, `LAG()`, `OVER (PARTITION BY...)`) | Bir tablonun tamamına bakmak yerine, belirli gruplar (`partition`) içinde sıralama, kümülatif toplam alma veya önceki/sonraki satırlara erişme imkanı verir. | **Analiz Sorusu:** "Her bir kullanıcı için yaptığı son 3 uçuşu bulmalıyım" veya "Aylık kümülatif satışları hesaplamalıyım." |
 | **Aggregation Fonksiyonları** (`AVG`, `SUM`, `COUNT`, `MAX`) | Veri grupları üzerinde özet istatistikler üretir (*Örn: `GROUP BY user_id` ile her kullanıcı için toplam tıklama sayısını bulmak*). | **Analiz Sorusu: Feature Engineering:** Bir kullanıcının davranışını tek bir satırda özetlemem gerekiyor mu? *(Evet ise, `SUM/AVG` kullanın)*. |
 | **CAST / DATE Fonksiyonları** (`CAST()`, `DATE_FORMAT()`) | Veri tiplerini dönüştürme ve tarih-saat verilerini işleme (*örn: "yaşı hesaplamak için `birthdate` sütununu kullanmak"*). | **Veri Kalitesi Kontrolü:** Sütunların veri tipleri doğru mu? `session_start` gibi bir zaman damgasından gün, ay, yıl gibi yeni özellikler türetmek gerekiyor mu? |
+
+<img width="644" height="643" alt="image" src="https://github.com/user-attachments/assets/9d851284-dba5-4e3b-bcaf-1f6a59ed24af" />
+
+
+
