@@ -304,3 +304,33 @@ This analysis focuses on detecting and explaining potentially negative or logica
 | **`base_fare_usd`** (Base Fare USD) | **MIN:** $2.410000$ (Positive) | **ANOMALOUSLY LOW VALUE.** The minimum value is positive. However, based on this table, the lowest value is $2.41$ USD. While this price is very low (could be a mistake or promotion), it is technically a positive fare. **If the MIN value were negative**, it would indicate a data entry error (a negative base fare is nonsensical) or a refund/reversal transaction. |
 | **`nights`** (Nights Stayed) | **MIN:** $-2.000000$ (Negative) | **DATA ENTRY / JOIN ERROR.** A negative number of nights spent at a hotel is **logically impossible**. This is definitely a **data entry/join error** that requires a **data cleaning** step. These records must either be excluded or set to `NaN`. |
 | **`flight_discount_amount`** | **MIN:** $0.050000$ (Positive) | **EXPECTED VALUE.** This represents the discount rate. A negative discount (i.e., a price increase) is not expected. A minimum discount rate of 5% is an expected and valid value. |
+
+# 📊 Consolidated Initial Data Analysis (EDA) 🔎
+The dataset, consisting of 49,211 entries and 41 columns, is the result of the prior Spark SQL integration and filtering steps. The goal of this inspection is to identify data types, missing value patterns, and feature distributions before Feature Engineering (FE).
+
+## 1. Data Structure and Quality Assessment 💾
+
+This section summarizes the data types and crucial non-null counts, highlighting columns with significant missing values.
+
+| # | Column Name | Data Type | Non-Null Count | Missing (%) | Feature Category 🏷️ |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **Identifiers & Core** | `session_id`, `user_id`, `session_start`, `session_end`, `page_clicks`, `cancellation` | `object` / `int64` / `datetime64` / `bool` | 49211 | 0% | Core metrics are complete. |
+| **Transaction ID** | `trip_id` | `object` | 16702 | **66.1%** | Indicates sessions that resulted in or focused on a potential trip. |
+| **Discount Amounts** | `flight_discount_amount` | `float64` | 8282 | **83.2%** | Present only when a flight discount was applied. |
+| **Discount Amounts** | `hotel_discount_amount` | `float64` | 6205 | **87.4%** | Present only when a hotel discount was applied. |
+| **Flight Details** | `origin_airport`, `destination`, `base_fare_usd`, etc. | Various | 14270 | **71.0%** | **Missingness is Expected:** Represents sessions where a flight transaction did **not** occur or was not searched for. |
+| **Hotel Details** | `hotel_name`, `nights`, `rooms`, `hotel_price_per_room_night_usd` | Various | 14726 | **70.1%** | **Missingness is Expected:** Represents sessions where a hotel transaction did **not** occur or was not searched for. |
+| **Date/Time Fields** | `birthdate`, `sign_up_date`, `departure_time`, `check_in_time`, etc. | `datetime64[ns]` | Variable | Variable | Crucial for **time-based feature creation**. |
+
+## 2. Key Statistical Insights (Numerical Columns) 📈
+
+This table focuses on the distribution and spread of key numerical metrics, identifying potential outliers and data preparation needs.
+
+> **Data Quality Insight:** The massive missing percentages (70-87%) in the transaction columns (Flight, Hotel, Discounts) are intentional due to the **LEFT JOIN** strategy. In FE, these `NULL` values must be imputed with **0** to represent "no transaction/no discount" and be used as predictive features.
+
+| Column Name | Mean (Average) | 75th Percentile | Max (Maximum) | Analytical Insight 💡 |
+| :--- | :--- | :--- | :--- | :--- |
+| **page_clicks** | 17.58 | 22.0 | 566.0 | **High Outlier/Skew:** The maximum value (566) is substantially higher than the 75th percentile (22). This implies a heavily **right-skewed distribution**, requiring potential **Log Transformation** to normalize the data for ML models. |
+| **seats** | 1.21 | 1.0 | 8.0 | **Low Transaction Volume:** The mean is close to 1, and the 75th percentile is exactly 1, confirming that the vast majority of flight bookings are for a single traveler. The Max (8) indicates occasional large group bookings. |
+| **hotel_price_per_room_night_usd** | 177.93 | 222.0 | 1376.0 | **Wide Price Range:** The maximum price is significantly higher than the 75th percentile, indicating a wide range of hotel quality/luxury is present in the bookings. |
+| **flight_discount_amount** | 0.139 (~14%) | 0.20 | 0.60 (60%) | **Discount Distribution:** The average discount applied (when present) is around 14%, with the largest discount being 60%. |
