@@ -202,3 +202,19 @@ Filtreleme ve örnekleme işlemlerini Spark SQL sorgusunun içinde (Ortak Tablo 
 | :--- | :--- |
 | **Performans Optimizasyonu** | Spark'ın dağıtık işleme gücünden yararlanarak büyük veri setlerinin filtrelemesini **verimli bir şekilde** yönetir, böylece sonraki karmaşık işlemler için belleğe yüklenmesi gereken veri miktarını önemli ölçüde azaltır. |
 | **Artan Model Kalitesi** | Ortaya çıkan Analitik Üs Tablosunun (`session_base`), yalnızca aktif, yakın zamanda etkileşimde bulunmuş kullanıcılardan türetilen **yüksek kaliteli verileri** içermesini sağlar, bu da ML aşamasında daha **uygulanabilir ve tahmin gücü yüksek** müşteri segmentlerine yol açar. |
+
+## 🛑 Negatif veya Anormal Değer Analizi (Hata Tespiti) 🔎
+
+Sağlanan istatistiksel özette, bağlamına göre hatalı veya mantıksal olarak anormal sayılabilecek değerlerin tespiti ve nedenleri aşağıdadır.
+
+| Sütun Adı 📝 | Negatif/Anormal Değer Tespiti 💡 | Neden Olabilecekler ve Analiz Katkısı 🚀 |
+| :--- | :--- | :--- |
+| **home_airport_lon** (Ev Havaalanı Boylamı) | **MIN:** $-157.927000$ (Negatif) | **COĞRAFİ BEKLENTİ.** Boylam (Longitude) değerleri, dünyanın batı yarım küresi için doğal olarak negatiftir (örn. ABD, Kanada, Güney Amerika). Bu değerler **hata değil**, coğrafi konumun doğru temsilidir. |
+| **destination_airport_lon** (Varış Havaalanı Boylamı) | **MIN:** $-157.927000$ (Negatif) | **COĞRAFİ BEKLENTİ.** Aynı şekilde, bu değerler de coğrafi konumu temsil eder ve bu aralık, veri setindeki uçuşların Batı Yarımküre'deki uzak noktalara yapıldığını gösterir. |
+| **destination_airport_lat** (Varış Havaalanı Enlemi) | **MIN:** $-37.008000$ (Negatif) | **COĞRAFİ BEKLENTİ.** Enlem (Latitude) değerleri güney yarım küre için negatiftir (örn. Arjantin, Avustralya, Güney Afrika). Bu, kullanıcıların Güney Yarımküre'deki yerlere uçuş rezervasyonu yaptığını gösteren **geçerli bir veridir**. |
+| **checked_bags** (Kontrol Edilen Bagaj Sayısı) | **MIN:** $0.000000$ (Sıfır) | **BEKLENEN DEĞER.** Bagaj sayısının sıfır olması, kullanıcının hiç bagaj kontrol ettirmediği anlamına gelir. Bu, negatif bir değer olmadığı için **hata değil**, veri setindeki bir durumu (özellik değeri) temsil eder. |
+| **base_fare_usd** (Temel Ücret USD) | **MIN:** $2.410000$ (Pozitif) | **ANORMAL DÜŞÜK DEĞER.** Minimum değer negatiftir. Ancak bu tabloya göre en düşük değer $2.41$ USD'dir. Bu fiyat çok düşük olsa da (hata veya promosyon olabilir), teknik olarak pozitif bir ücrettir. **EĞER MIN değeri negatif olsaydı**, bu bir veri girişi hatasını (base\_fare'in negatif olması anlamsızdır) veya iade/iade işlemini gösterebilirdi. |
+| **nights** (Gece Sayısı) | **MIN:** $-2.000000$ (Negatif) | **VERİ GİRİŞ HATASI / ANORMALLİK.** Bir otelde geçirilen gece sayısının negatif olması **mantıksal olarak imkansızdır**. Bu, kesinlikle bir **veri temizleme (Data Cleaning)** adımı gerektiren bir **veri girişi/birleştirme hatasıdır (data entry/join error)**. Bu kayıtlar ya çıkarılmalı ya da `NaN` olarak ayarlanmalıdır. |
+| **flight_discount_amount** | **MIN:** $0.050000$ (Pozitif) | **BEKLENEN DEĞER.** İndirim oranıdır. Negatif bir indirim (yani zam) beklenmez. Minimum indirim oranının $\%5$ olması beklenir. |
+
+
