@@ -21,7 +21,7 @@ The primary objective of this project is to develop a data-driven customer reten
 ### Objective
 Before proceeding to Feature Engineering, the goal of this stage was to understand the structure, scale, and quality of the raw data fetched from the TravelTide PostgreSQL database.
 
-### 1. Initial Data Status (Raw State)
+### 1. Initial Data Status (Raw State) 
 
 | Table | Size (Rows) | Initial Observations |
 | :--- | :--- | :--- |
