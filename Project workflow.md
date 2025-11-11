@@ -334,3 +334,24 @@ This table focuses on the distribution and spread of key numerical metrics, iden
 | **seats** | 1.21 | 1.0 | 8.0 | **Low Transaction Volume:** The mean is close to 1, and the 75th percentile is exactly 1, confirming that the vast majority of flight bookings are for a single traveler. The Max (8) indicates occasional large group bookings. |
 | **hotel_price_per_room_night_usd** | 177.93 | 222.0 | 1376.0 | **Wide Price Range:** The maximum price is significantly higher than the 75th percentile, indicating a wide range of hotel quality/luxury is present in the bookings. |
 | **flight_discount_amount** | 0.139 (~14%) | 0.20 | 0.60 (60%) | **Discount Distribution:** The average discount applied (when present) is around 14%, with the largest discount being 60%. |
+
+## 3. Next Steps for Feature Engineering (FE) 🚀
+
+Based on this Exploratory Data Analysis (EDA), the immediate next steps should be:
+
+### 🧹 Data Cleaning and Imputation
+
+* **Imputation (Missing Values):** Fill all `NaN` values in numerical transaction and discount columns (e.g., `base_fare_usd`, `nights`, `discount_amount`) with **0**. This step is crucial as `NaN` represents "no transaction/no discount."
+
+### 📅 Temporal Feature Creation
+
+Derive new, high-value temporal features from the `datetime64[ns]` columns:
+
+* **User Age:** Calculate the user's current age from the `birthdate` column.
+* **User Tenure:** Calculate how long the user has been registered from the `sign_up_date`.
+* **Session Duration:** Calculate the length of the session using: `session_end` minus `session_start`.
+* **Time of Day/Week:** Extract the hour, day of the week, or month from `session start/end` times to capture **behavioral seasonality**.
+
+### 📉 Outlier Handling
+
+* **Address Skewness:** Address the skewness and extreme outliers observed in `page_clicks` (e.g., by capping or applying a logarithmic transformation) to improve the performance of downstream Machine Learning models.
