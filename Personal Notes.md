@@ -117,3 +117,35 @@ This table outlines the key methodological differences between conventional, rul
 <img width="563" height="672" alt="image" src="https://github.com/user-attachments/assets/b8e82b56-513b-4ec9-b081-a01a424aea6f" />
 
 
+## 🧩 SQL Sorgu İşlevi: Analitik Üs Tablosu (ABT) Oluşturma 📊
+
+SQL sorgusunun temel amacı, sonraki ML modellemesi için dört ana tabloyu birleştirerek tek, kapsamlı bir **Analitik Üs Tablosu (ABT)** oluşturmaktır.
+
+| SQL Bileşeni ⚙️ | Teknik İşlevsellik 💡 | Proje Önemi 📈 |
+| :--- | :--- | :--- |
+| **SELECT Clause** (SEÇİM Yan Tümcesi) | **Özellik Seçimi.** Özellik Mühendisliği (**Feature Engineering**) ve Makine Öğrenmesi modelleri için gerekli her sütunu açıkça seçer. | Kritik veri noktalarını toplar: kullanıcı davranışı (`s.page_clicks`), demografik veriler (`u.gender`) ve işlem verileri (`f.base_fare_usd`, `h.hotel_price_per_room_night_usd`). |
+| **FROM Clause** (KAYNAK Yan Tümcesi) | Birleştirme işleminin başlangıç noktasını (`sessions_spark` tablosu) belirtir. | Birincil ayrıntı düzeyini (granularity) tanımlar: çıktı tablosu **oturum düzeyinde** olacaktır. |
+| **JOIN Türü: INNER JOIN** (İÇ BİRLEŞTİRME) | `sessions` ve `users` tablolarını `user_id` üzerinden birleştirmek için kullanılır. Yalnızca **her iki** tabloda da eşleşmenin olduğu satırları döndürür. | Kullanıcı bağlamı **her zaman esas** olduğu için, ABT'deki her oturum kaydının geçerli bir kullanıcıya bağlı olmasını sağlar. |
+| **JOIN Türü: LEFT JOIN** (SOL BİRLEŞTİRME) | `flights` ve `hotels` tablolarıyla `trip_id` üzerinden birleştirmek için kullanılır. *Sol* tablodaki (`sessions` ve `users`) tüm kayıtları ve *sağ* tablodan eşleşen kayıtları döndürür. | **Segmentasyon** analizi için çok önemlidir. Kullanıcının göz attığı ancak **rezervasyon yapmadığı** oturumları korur ve bu durumlarda uçuş/otel detayları için `NULL` değerler döndürür. |
+
+
+## II. 💾 Büyük Veride SQL Neden Zorunludur? (PySpark Bağlamı) 🧠
+
+PySpark ortamında (`%%sql` ile çalıştırıldığında), dönüşüm için SQL kullanmak isteğe bağlı değildir; **yüksek performans ve ölçeklenebilirlik** elde etmek için bir **zorunluluktur**.
+
+| Sebep 🌟 | Teknik Açıklama 📝 | Standart Python/Pandas'a Göre Avantajı 🚀 |
+| :--- | :--- | :--- |
+| **Performans (Vektörizasyon)** | SQL sorguları ve Spark SQL, veriyi tüm düğümler ve çekirdekler arasında **sütun bazlı ve dağıtık bir şekilde** işler, böylece **vektörizasyondan** yararlanır. | Özellikle büyük veri setlerinde, standart Python/Pandas'taki geleneksel satır bazlı döngülere göre **önemli ölçüde daha hızlıdır**. |
+| **Optimizasyon (Catalyst Optimizer)** | Spark, arka planda akıllı **Catalyst Optimizer** motorunu kullanır. Bu motor, SQL sorgunuzu otomatik olarak en **verimli fiziksel yürütme planına** dönüştürür. | Elle yazılmış Python/Pandas kodunun ulaşmasının zor veya imkansız olduğu düzeyde bir hız ve verimlilik sağlar. |
+| **Bellek Yönetimi** | Spark SQL, veri yükleme, akış ve ara sonuçları kümenin belleğinde ve diskinde verimli bir şekilde yönetir. | **"Bellek Hatası" riskini azaltır.** Tüm veriyi tek bir makinenin RAM'ine yüklemeye çalışan Pandas'ın aksine, Spark, yerel makinenin bellek kapasitesinden çok daha büyük veri setlerini işleyebilir. |
+
+## 🛠️ İşe Yarayan SQL Araçları ve Bunları Tespit Etme Yolları 🔍
+
+Büyük veri bağlamında (özellikle Spark SQL/PySpark kullanırken) işinize en çok yarayacak SQL yapıları ve fonksiyonları aşağıdadır.
+
+| SQL Aracı (Tool) 🔧 | Ne İşe Yarar? 💡 | Nasıl Tespit Edilir? (Analiz Sorusu) 🤔 |
+| :--- | :--- | :--- |
+| **JOIN Türleri** (`INNER`, `LEFT`, `RIGHT`) | Farklı tablolardaki bilgileri anahtarlar (`user_id`, `trip_id`) üzerinden birleştirmeyi sağlar. | **Analiz Sorusu:** Hangi verileri bir arada görmeniz gerekiyor? *Örneğin, "Tüm kullanıcıları, rezervasyon yapmış olsalar da olmasalar da görmek istiyorsam **LEFT JOIN** kullanmalıyım."* |
+| **WINDOW Fonksiyonları** (`ROW_NUMBER()`, `LAG()`, `OVER (PARTITION BY...)`) | Bir tablonun tamamına bakmak yerine, belirli gruplar (`partition`) içinde sıralama, kümülatif toplam alma veya önceki/sonraki satırlara erişme imkanı verir. | **Analiz Sorusu:** "Her bir kullanıcı için yaptığı son 3 uçuşu bulmalıyım" veya "Aylık kümülatif satışları hesaplamalıyım." |
+| **Aggregation Fonksiyonları** (`AVG`, `SUM`, `COUNT`, `MAX`) | Veri grupları üzerinde özet istatistikler üretir (*Örn: `GROUP BY user_id` ile her kullanıcı için toplam tıklama sayısını bulmak*). | **Analiz Sorusu: Feature Engineering:** Bir kullanıcının davranışını tek bir satırda özetlemem gerekiyor mu? *(Evet ise, `SUM/AVG` kullanın)*. |
+| **CAST / DATE Fonksiyonları** (`CAST()`, `DATE_FORMAT()`) | Veri tiplerini dönüştürme ve tarih-saat verilerini işleme (*örn: "yaşı hesaplamak için `birthdate` sütununu kullanmak"*). | **Veri Kalitesi Kontrolü:** Sütunların veri tipleri doğru mu? `session_start` gibi bir zaman damgasından gün, ay, yıl gibi yeni özellikler türetmek gerekiyor mu? |
