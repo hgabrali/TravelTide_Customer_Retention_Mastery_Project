@@ -176,3 +176,29 @@ Bu tek SQL bloğu, iş akışınızdaki **en temel adımdır** ve şunları sağ
 1.  **Veri Entegrasyonu:** Farklı veri kaynaklarını tutarlı bir analitik görünüme birleştirir.
 2.  **Ölçeklenebilirlik:** Bu karmaşık birleştirmeyi Spark'ın dağıtık hesaplama gücünü kullanarak verimli bir şekilde yürütür.
 3.  **ML İçin Temel:** Sonraki tüm **Özellik Mühendisliği** ve **ML tabanlı Müşteri Segmentasyonu** adımları için gerekli olan nihai giriş tablosunu (ABT) oluşturur.
+
+
+## 💾 Pre-Filtering and Sampling Analysis (PySpark SQL) 🚀
+
+<img width="679" height="521" alt="image" src="https://github.com/user-attachments/assets/728e98b7-3412-4c49-8d0e-196e60c91131" />
+
+## 💾 Ön Filtreleme ve Örnekleme Analizi (PySpark SQL) 🚀
+
+Bu SQL kodu, ana birleştirme işlemi **öncesinde** başlangıç veri filtrelemesi ve kullanıcı örneklemesi yapmak için **Ortak Tablo İfadelerini (CTE'ler)** kullanır. Bu, Büyük Veri analizinde kritik bir performans optimizasyon tekniğidir.
+
+| Bileşen / İşlem ⚙️ | Teknik İşlevsellik ve Amacı 💡 | Analitik Katkısı ve Önemi 🌟 |
+| :--- | :--- | :--- |
+| **WITH sessions_2023 AS (...)** | **Zamana Dayalı Filtreleme (Temporal Filtering).** Bu CTE, `sessions_spark` temel tablosunu yalnızca `session_start` değeri belirli bir tarihten (`'2023-01-04'`) sonra olan kayıtları içerecek şekilde filtreler. | **Veri Hacmini Azaltır.** İşlenen veri setinin boyutunu önemli ölçüde azaltır, sonraki karmaşık birleştirmeler için performansı artırır ve bellek yükünü düşürür. Analizin yalnızca en **güncel ve ilgili verilere** odaklanmasını sağlar (segmentasyon için güncel davranış daha tahmin edicidir). |
+| **WITH filtered_users AS (...)** | **Kullanıcı Örneklemesi (Davranışsal Filtre).** Bu CTE, veriyi `user_id`'ye göre gruplar ve oturum sayısı (`session_count`) 7'den az olan kullanıcıları (`HAVING COUNT(*) > 7`) filtreler. | **Etkileşimli Kullanıcılara Odaklanma (Pasif Kullanıcıların Çıkarılması).** Bu, **Özellik Mühendisliği (Feature Engineering)** için temel bir adımdır: <br> 1. **Gürültüyü Giderir:** Tek seferlik ziyaretçileri veya botları filtreler. <br> 2. **Veri Kalitesini Sağlar:** **Müşteri Segmentasyonu** modelinin, sağlam ve anlamlı bir segment profili oluşturmak için yalnızca **yeterli davranışsal veriye** sahip kullanıcılar üzerinde eğitilmesini garanti eder. |
+| **Neden SQL'de?** | **PySpark Catalyst ile Optimizasyon.** Bu filtrelerin başlangıçtaki `WITH` ifadeleri içinde yürütülmesi, Spark'ın Catalyst Optimizer'ının filtreleme mantığını veri kaynağına (veritabanı/veri gölü) itmesini sağlar. | **Maksimum Performans.** Büyük birleştirme işleminden **önce** veri hacmini azaltmanın en verimli yoludur. Bu karmaşık filtrelemeyi birleştirmeden *sonra* Pandas'ta yapmak, büyük performans darboğazlarına ve bellek sorunlarına yol açacaktır. |
+
+---
+
+## 📝 Ön İşlemenin Önemi Özeti (Spark SQL'deki CTE'ler) 🚀
+
+Filtreleme ve örnekleme işlemlerini Spark SQL sorgusunun içinde (Ortak Tablo İfadeleri veya CTE'ler kullanarak) gerçekleştirmek **hayati** öneme sahiptir, çünkü:
+
+| Fayda Kategorisi 🌟 | Detay ve Sonuç 💡 |
+| :--- | :--- |
+| **Performans Optimizasyonu** | Spark'ın dağıtık işleme gücünden yararlanarak büyük veri setlerinin filtrelemesini **verimli bir şekilde** yönetir, böylece sonraki karmaşık işlemler için belleğe yüklenmesi gereken veri miktarını önemli ölçüde azaltır. |
+| **Artan Model Kalitesi** | Ortaya çıkan Analitik Üs Tablosunun (`session_base`), yalnızca aktif, yakın zamanda etkileşimde bulunmuş kullanıcılardan türetilen **yüksek kaliteli verileri** içermesini sağlar, bu da ML aşamasında daha **uygulanabilir ve tahmin gücü yüksek** müşteri segmentlerine yol açar. |
