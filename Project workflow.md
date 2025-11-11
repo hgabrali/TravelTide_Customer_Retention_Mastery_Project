@@ -161,3 +161,24 @@ This single SQL block is the most fundamental step in your workflow, achieving:
 3.  **Foundation for ML:** Creating the definitive input table (ABT) required for all subsequent **Feature Engineering** and **ML-based Customer Segmentation** steps.
 
 The `sessions_joined` table is now ready to begin generating derived features (Feature Engineering). 
+
+
+
+## 💾 Pre-Filtering and Sampling Analysis (PySpark SQL) 🚀
+
+This SQL code utilizes **Common Table Expressions (CTEs)** to perform initial data filtering and user sampling **before** executing the main join. This is a critical performance optimization technique in Big Data analysis.
+
+| Component / Action ⚙️ | Technical Functionality & Purpose 💡 | Analytical Contribution & Importance 🌟 |
+| :--- | :--- | :--- |
+| **WITH sessions_2023 AS (...)** | **Temporal Filtering (Time-Based Filter).** This CTE filters the base `sessions_spark` table to only include records where `session_start` is after a specific date (`'2023-01-04'`). | **Reduces Data Volume.** Significantly decreases the size of the dataset being processed, improving performance and reducing memory load for subsequent complex joins. Ensures the analysis focuses only on the most **recent and relevant data**, which is often crucial for segmentation (e.g., recent behavior is more predictive). |
+| **WITH filtered_users AS (...)** | **User Sampling (Behavioral Filter).** This CTE groups the data by `user_id` and filters out users who have a `session_count` less than 7 (`HAVING COUNT(*) > 7`). | **Focuses on Engaged Users (Lapsed User Removal).** This is a key step in **Feature Engineering**: <br> 1. **Removes noise:** Filters out one-off visitors or bots. <br> 2. **Ensures Data Quality:** Guarantees that the **Customer Segmentation** model is trained only on users with **sufficient behavioral data** to establish a robust and meaningful segment profile. |
+| **Why in SQL?** | **Optimization via PySpark Catalyst.** Executing these filters within the initial `WITH` clauses allows Spark's Catalyst Optimizer to push the filtering logic down to the data source (database/data lake). | **Maximum Performance.** This is the most efficient way to reduce data volume **before** loading it into memory for the large join. Performing this complex filtering in Pandas *after* the join would lead to massive performance bottlenecks and memory issues. |
+
+## 📝 Summary of Pre-processing Importance (CTEs in Spark SQL) 🚀
+
+Performing filtering and sampling inside the Spark SQL query (using Common Table Expressions or CTEs) is **essential** because:
+
+| Benefit Category 🌟 | Detail and Outcome 💡 |
+| :--- | :--- |
+| **Performance Optimization** | It leverages Spark's distributed processing power to handle the filtering of huge datasets **efficiently**, drastically reducing the amount of data that needs to be loaded into memory for subsequent complex operations. |
+| **Increased Model Quality** | It ensures the resulting Analytic Base Table (`session_base`) contains only **high-quality data** derived from active, recently engaged users, leading to more **actionable and predictive** customer segments in the ML phase. |
