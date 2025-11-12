@@ -109,3 +109,42 @@ These insights validate that the `is_transactional` indicator and log transforma
 | **flight_discount_amount vs. All Variables** | $\le 0.04$ | Negligible | **Critical Finding:** The actual percentage discount (when applied) has almost **no linear predictive power** over session activity, price, or transaction likelihood. |
 | **user_age / user_tenure_days vs. Activity** | $\le 0.05$ | Negligible | **Demographic Weakness:** Neither user age nor time since registration linearly correlates with current session engagement or transaction volume. |
 
+
+<img width="1335" height="553" alt="image" src="https://github.com/user-attachments/assets/cb51057a-6e2b-42c9-9aee-b292ac853556" />
+
+## 📈 Advanced Multivariate Visualization Analysis 🖼️
+
+---
+
+### 1. Scatter Plot: Relationship between Duration and Clicks, by Transaction Status
+
+| Analysis Component | Insight | Modeling Implication 🎯 |
+| :--- | :--- | :--- |
+| **Key Insight (Segmentation)** | The plot shows **two completely distinct, parallel clusters** based on the `is_transactional` status. The Transaction Focused (1) cluster (orange) occupies a higher domain across both axes compared to the Browsing Only (0) cluster (blue). | The `is_transactional` feature is a **perfect segmenting variable**, proving it will be one of the most powerful predictors in any machine learning model. |
+| **Confirmation of Engagement** | This strongly validates that **transactional sessions are simultaneously longer in duration and require more page clicks** than pure browsing sessions. The strong linear (log-log) relationship within each cluster confirms the reliability of the log transformations. | |
+
+### 2. Box Plot: Log Hotel Price Distribution by Transaction Status
+
+| Analysis Component | Insight | Modeling Implication 🎯 |
+| :--- | :--- | :--- |
+| **Key Insight (Signal vs. Noise)** | The Browsing Only (0) group shows **no visible price distribution**. This visually confirms that **price information is a signal** that only exists within the Transaction Focused (1) sessions. | The original decision to treat missing price values as "no transaction/zero value" was the correct approach, as it allows us to use the *presence* of a price as a proxy for transactional intent. |
+| **Distribution** | The transactional group shows a normalized price distribution, with a median log price around 5.0 (corresponding to $\approx \$149$), indicating that the Log transformation was highly effective in normalizing the pricing variable. | |
+
+### 3. Box Plot: Log Clicks Distribution by Discount Presence
+
+| Analysis Component | Insight | Modeling Implication 🎯 |
+| :--- | :--- | :--- |
+| **Key Challenge Confirmed** | The plot only shows the distribution for the **Discount Applied** group. The "No Discount Applied" group is missing from the visualization, confirming the gap noted in the Grouped Analysis. | For future analysis, the missing group data must be included to truly understand the impact of the `has_flight_discount` indicator. |
+| **Current Finding** | The median log clicks for discounted sessions sits around 2.57, which is between the pure browsing (2.23) and highly transactional (3.23) means. This suggests the discounted group is a mixed bag of medium-to-high intent users. | |
+
+---
+
+## 🚀 Conclusion of Multivariate Analysis
+
+The Multivariate Analysis successfully accomplished its goals:
+
+* **FE Validation:** It confirmed the success of the **Log Transformations** and the high predictive power of the newly created indicator and temporal features.
+* **Key Relationships:** It definitively established that **transactional intent** (`is_transactional`) is the primary driver of both user engagement (clicks and duration) and the presence of price information.
+* **Predictor Strength:** Features like `is_transactional`, `log_page_clicks`, and `session_duration_seconds` are **strong predictors** and should be prioritized in model construction.
+
+The data is now **clean, transformed, analyzed, and ready for model building** (e.g., predicting `is_transactional` or another target metric).
