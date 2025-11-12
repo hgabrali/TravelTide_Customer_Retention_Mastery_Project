@@ -1,7 +1,7 @@
  # UNIVARIATE ANALYSIS (Single-Variable Analysis)
 - Using: **df_sessions_clean**
 
-
+ 
 This analysis is conducted to understand how each variable in the dataset behaves individually.
 
 | Variable Type | Action to be Taken 🛠️ | Example Columns 💡 |
