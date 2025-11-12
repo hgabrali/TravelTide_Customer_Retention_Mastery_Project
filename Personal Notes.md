@@ -218,3 +218,19 @@ Sağlanan istatistiksel özette, bağlamına göre hatalı veya mantıksal olara
 | **flight_discount_amount** | **MIN:** $0.050000$ (Pozitif) | **BEKLENEN DEĞER.** İndirim oranıdır. Negatif bir indirim (yani zam) beklenmez. Minimum indirim oranının $\%5$ olması beklenir. |
 
 
+## 📊 Categorical-Numeric Relationship Analysis Insights 🔎
+
+### 1. Grouped by `is_transactional` (0: Browsing, 1: Transaction-Focused) 🎯
+
+| Metric | Non-Transactional (0) | Transactional (1) | Fark (Kat / % Fark) | Analiz |
+| :--- | :--- | :--- | :--- | :--- |
+| **Avg Log Clicks** | 2.23 | 3.23 | **%44 Daha Yüksek** | **Doğrulandı:** İşlemsel oturumlar, işlemsel olmayanlara göre **%44 daha fazla** sayfa tıklaması (browsing effort) içerir. |
+| **Avg Session Duration** | 85.12 saniye | 386.04 saniye | **4.5 Kat Daha Uzun** | **Çok Güçlü Doğrulama:** İşlemsel oturumlar, işlemsel olmayanlardan **4.5 kat daha uzun sürer.** Bu, işlem odağının kullanıcı etkileşimini dramatik bir şekilde artırdığını gösterir. |
+| **Avg Log Hotel Price** | NULL | 5.01 | N/A | **Doğrulandı:** İşlemsel olmayan oturumlarda ortalama fiyat hesaplanamaz (NULL). İşlemsel oturumlar, ortalama $e^{5.01} - 1 \approx \$149.3$ fiyatında otel içerir. |
+
+## 📉 2. Grouped by `has_flight_discount` (Presence of Discount)
+
+| Metric | Discount Applied | No Discount Applied (Eksik) | Fark | Analiz |
+| :--- | :--- | :--- | :--- | :--- |
+| **Avg Log Clicks** | 2.57 | Eksik | N/A | **Yorum:** Sadece indirim uygulanan oturumların ortalaması (2.57) hesaplanmıştır. İndirim uygulanmayan oturumların ortalamasını görmek, bu göstergenin etkisini daha net anlamamızı sağlardı. |
+| **Avg Session Duration** | 187.25 saniye | Eksik | N/A | **Yorum:** İndirim uygulanan oturumlar ortalama 187 saniye sürer. Bu süre, işlemsel olmayan oturumlar (85s) ile işlemsel oturumlar (386s) arasında bir yerde yer alır. |
