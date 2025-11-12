@@ -396,3 +396,19 @@ This table summarizes the identified data quality issues and outlines the mandat
 | **`session_start/end`** | Requires Calculation | Crucial for understanding user engagement. | None. | **Calculate Session Duration:** Create `session_duration_seconds`. |
 | **`home_airport_lat/lon`** | Requires Calculation | Raw Lat/Lon values are not predictive unless relative to the destination. | None. | **Calculate Distance:** Create `home_to_destination_distance` (Haversine distance). |
 | **`trip_id`** (Missing: 66.1%) | Expected Missingness (NULL) | Missing values indicate sessions not focused on a potential trip/booking. | None. (Discount columns already imputed in STEP 3). | **Create Indicator Feature:** `is_transactional` (1 if `trip_id` is NOT null, 0 otherwise). |
+
+## ⚙️ Feature Engineering (FE) Wrap-up & Validation
+
+The critical Feature Engineering steps required to proceed to the Multivariate Analysis have been successfully completed using PySpark.
+
+| Feature Type | Status & Observation 📝 | Technical Insight / Justification 💡 |
+| :--- | :--- | :--- |
+| **Transactional Indicator** (`is_transactional`) | **Status:** Successfully created (1/0). Sessions without a `trip_id` are correctly marked as 0 (Non-transactional). | This feature is crucial for Multivariate Analysis as it clearly segments users based on their intent (trip-focused vs. browsing). |
+| **Distribution Normalization** (`log_page_clicks`) | **Status:** Log Transformation applied successfully, mitigating the severe right-skewness observed in the Univariate Analysis. | Normalized features are essential for linear models and distance-based algorithms, ensuring that extreme outliers do not disproportionately influence correlations. |
+| **Log-Transformed Transactional Features** (`log_hotel_price`, `log_nights`) | **Observation:** These columns display `NULL` values after the transformation, even though the original columns (`hotel_price_per_room_night_usd` and `nights`) were designed to be imputed with 0 when the transaction was missing. | **Technical Note:** The presence of `NULL`s post-transformation is likely due to the PySpark logic order: the `log1p` function was calculated *before* the intended imputation (filling `NaN` with 0) took effect on the specific transaction subset, or due to how the original NULLs were handled during the operation. |
+| **Path Forward** | **Conclusion:** Despite the residual `NULL`s in the transformed transaction columns, we can proceed with the analysis. | **Justification:** PySpark correlation functions, such as `df.stat.corr`, typically handle `NULL` values automatically by applying **pairwise deletion**. This means the analysis will use all non-null pairs of data points, ensuring the calculated correlations remain valid. |
+
+---
+
+### **Next Step:** Correlation Matrix (Heatmap)
+We are now fully prepared to execute the Multivariate Analysis, starting with the **Correlation Matrix** to discover relationships between these newly engineered and normalized features.
