@@ -412,3 +412,33 @@ The critical Feature Engineering steps required to proceed to the Multivariate A
 
 ### **Next Step:** Correlation Matrix (Heatmap)
 We are now fully prepared to execute the Multivariate Analysis, starting with the **Correlation Matrix** to discover relationships between these newly engineered and normalized features.
+
+### 🔬 Correlation Matrix Key Insights (Multivariate Analysis)
+
+| Relationship (Var1 vs. Var2) | Correlation ($r$) | Strength | Interpretation and Impact on Modeling |
+| :--- | :--- | :--- | :--- |
+| **is_transactional vs. log_hotel_price** | **0.90** | Very Strong Positive | **Confirms FE Success:** Indicates sessions flagged as transactional are overwhelmingly tied to hotel searches/bookings. This is a highly predictive pair. |
+| **is_transactional vs. seats** | **0.77** | Strong Positive | **Key Transaction Driver:** Booking a quantity of seats is a primary activity defining a transactional session. |
+| **seats vs. base_fare_usd** | **0.65** | Strong Positive | **Logical Relationship:** Higher total number of seats correlates directly with a higher total fare amount. This validates the imputation of 0s in transaction columns. |
+| **log_page_clicks vs. is_transactional** | **0.58** | Moderate Positive | **User Effort:** Transactional sessions require more user effort (clicks) than pure browsing sessions. |
+| **log_page_clicks vs. log_hotel_price** | **0.54** | Moderate Positive | **High-End Shopping:** Users interested in higher-priced hotels engage in more browsing activity. |
+| **log_page_clicks vs. session_duration_seconds** | **0.44** | Moderate Positive | **Engagement:** More pages clicked translates to moderately longer sessions, validating the relationship between these two FE features. |
+| **flight_discount_amount vs. All Variables** | $\le 0.04$ | Negligible | **Critical Finding:** The actual percentage discount (when applied) has almost **no linear predictive power** over session activity, price, or transaction likelihood. |
+| **user_age / user_tenure_days vs. Activity** | $\le 0.05$ | Negligible | **Demographic Weakness:** Neither user age nor time since registration linearly correlates with current session engagement or transaction volume. |
+
+## 🔬 Categorical-Numeric Relationship Analysis (Grouped Analysis) 📊
+
+### 1. Goal 🎯
+
+The primary goal of this stage is to perform a **Group-By Analysis** to calculate the mean of key numerical features, segregated by the values of the indicator (categorical) features (`is_transactional` and `has_flight_discount`). This confirms the strength of the linear relationships observed in the Correlation Matrix by comparing group averages.
+
+### 2. Key Relationships to Investigate 🔎
+
+| Indicator Feature (Categorical) | Numerical Feature (Continuous) | Question to Answer 🤔 |
+| :--- | :--- | :--- |
+| **`is_transactional`** (0 vs. 1) | **`log_page_clicks`** | Do transactional sessions involve significantly more browsing effort (clicks) than non-transactional sessions? |
+| **`is_transactional`** (0 vs. 1) | **`session_duration_seconds`** | Are transactional sessions longer than non-transactional sessions? |
+| **`is_transactional`** (0 vs. 1) | **`log_hotel_price`** | Is the average hotel price significantly higher when a session is transactional? |
+| **`has_flight_discount`** | **`log_page_clicks`** | Do sessions *with* a discount involve more clicks than sessions *without* a discount? |
+
+
