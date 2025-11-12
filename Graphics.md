@@ -61,3 +61,51 @@ This summary outlines the key findings and implications for Feature Engineering 
 | Finding 📝 | Impact on Action/FE ⚙️ |
 | :--- | :--- |
 | **Observation:** Cancellation events are notably rare. Compared to the total session count (49,211), the overall cancellation rate is approximately: $\frac{610}{48601 + 610} \approx 0.0124 \approx 1.24\%$. This signifies that the dataset predominantly consists of successful, completed, or non-cancelled sessions. | **FE/Modeling Implication:** If the `cancellation` column is designated as the target variable for a model, it represents a **highly imbalanced class distribution**. This severe imbalance necessitates specialized techniques during the modeling phase, such as **oversampling, undersampling, or class weighting**, to ensure adequate predictive performance for the minority class. |
+
+# 🔬 MULTIVARIATE ANALYSIS (Multi-Variable Analysis)
+
+<img width="783" height="642" alt="image" src="https://github.com/user-attachments/assets/a65fdea6-93b7-410c-8405-9efc7c102f7a" />
+
+
+## 🔬 Multivariate Analysis: Correlation Matrix Insights 💡
+
+The analysis focuses on identifying **strong** ($|r| \ge 0.50$) and **moderate** ($|r| \ge 0.20$) correlations, confirming the success of the Feature Engineering (FE) steps.
+
+---
+
+### A. Strong Transactional Drivers (High Correlation) 🛒
+
+These insights validate that the `is_transactional` indicator and log transformations are working as intended, and highlight the primary drivers of trip-focused sessions.
+
+* **`is_transactional` vs. `log_hotel_price` ($r = 0.90$):** This is the **strongest correlation**, indicating that sessions flagged as transactional are almost perfectly tied to searching/booking hotels (which carry a price).
+* **`is_transactional` vs. `seats` ($r = 0.77$):** A **very strong positive relationship**, confirming that booking a quantity of seats is a key element that defines a transactional session.
+* **`seats` vs. `base_fare_usd` ($r = 0.65$):** As expected, the higher the number of seats booked, the higher the overall total fare (sum of imputed values).
+
+---
+
+### B. User Engagement and Intent 🧠
+
+* **`log_page_clicks` vs. `is_transactional` ($r = 0.58$):** A **moderately strong relationship** showing that users in transactional sessions (e.g., those trying to book) spend significantly more time browsing pages.
+* **`log_page_clicks` vs. `session_duration_seconds` ($r = 0.44$):** A **moderate positive link**. Sessions with more pages clicked tend to last longer, which is a key measure of user engagement.
+* **`log_page_clicks` vs. `log_hotel_price` ($r = 0.54$):** Users searching for higher-priced accommodations tend to engage in more page clicks, potentially due to comparison shopping or browsing luxury options.
+
+---
+
+### C. Negligible Correlations (No Linear Relationship) 📉
+
+* **Demographics:** `user_age` and `user_tenure_days` show **negligible correlation** (all $|r| \le 0.05$) with almost all activity and transaction variables. This suggests that the age of the user or how long they have been registered does not linearly predict their session length, clicks, or transaction propensity.
+* **Discount Amount:** `flight_discount_amount` shows **negligible correlation** (all $|r| \le 0.04$) with all variables. This is a **critical finding**: the percentage of the discount applied (when a discount exists) does not linearly influence transaction volume, fare, or session activity. The presence of a discount might matter, but the specific amount does not.
+
+### 🔬 Correlation Matrix Key Insights (Multivariate Analysis)
+
+| Relationship (Var1 vs. Var2) | Correlation ($r$) | Strength | Interpretation and Impact on Modeling |
+| :--- | :--- | :--- | :--- |
+| **is_transactional vs. log_hotel_price** | **0.90** | Very Strong Positive | **Confirms FE Success:** Indicates sessions flagged as transactional are overwhelmingly tied to hotel searches/bookings. This is a highly predictive pair. |
+| **is_transactional vs. seats** | **0.77** | Strong Positive | **Key Transaction Driver:** Booking a quantity of seats is a primary activity defining a transactional session. |
+| **seats vs. base_fare_usd** | **0.65** | Strong Positive | **Logical Relationship:** Higher total number of seats correlates directly with a higher total fare amount. This validates the imputation of 0s in transaction columns. |
+| **log_page_clicks vs. is_transactional** | **0.58** | Moderate Positive | **User Effort:** Transactional sessions require more user effort (clicks) than pure browsing sessions. |
+| **log_page_clicks vs. log_hotel_price** | **0.54** | Moderate Positive | **High-End Shopping:** Users interested in higher-priced hotels engage in more browsing activity. |
+| **log_page_clicks vs. session_duration_seconds** | **0.44** | Moderate Positive | **Engagement:** More pages clicked translates to moderately longer sessions, validating the relationship between these two FE features. |
+| **flight_discount_amount vs. All Variables** | $\le 0.04$ | Negligible | **Critical Finding:** The actual percentage discount (when applied) has almost **no linear predictive power** over session activity, price, or transaction likelihood. |
+| **user_age / user_tenure_days vs. Activity** | $\le 0.05$ | Negligible | **Demographic Weakness:** Neither user age nor time since registration linearly correlates with current session engagement or transaction volume. |
+
