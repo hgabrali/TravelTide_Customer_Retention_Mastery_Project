@@ -355,3 +355,44 @@ Derive new, high-value temporal features from the `datetime64[ns]` columns:
 ### 📉 Outlier Handling
 
 * **Address Skewness:** Address the skewness and extreme outliers observed in `page_clicks` (e.g., by capping or applying a logarithmic transformation) to improve the performance of downstream Machine Learning models.
+
+## 📊 II. UNIVARIATE ANALYSIS (Single-Variable Analysis)
+
+This analysis is conducted to understand how each variable in the dataset behaves individually.
+
+| Variable Type | Action to be Taken 🛠️ | Example Columns 💡 |
+| :--- | :--- | :--- |
+| **Numeric (Sayısal)** | **Statistical Summary:** Mean, median, standard deviation, minimum, maximum, quartiles (`df.describe()`). | `page_clicks`, `seats`, `hotel_price_per_room_night_usd`, `flight_discount_amount` |
+| | **Visualization:** Histograms to see the shape of the distribution, and Box Plots to detect outliers. | |
+| **Categorical (Kategorik)** | **Frequency Analysis:** Count how often each category occurs (`value_counts()`). | `origin_airport`, `destination_airport` (if there are a small number of distinct values), transaction statuses. |
+| | **Visualization:** Bar Plots to show the frequency of occurrences. | |
+
+
+## 🔬 III. MULTIVARIATE ANALYSIS (Multi-Variable Analysis)
+
+This analysis examines the relationships and dependencies between variables, providing important clues for modeling.
+
+| Analysis Type 🔎 | Action to be Taken ⚙️ | Example 💡 |
+| :--- | :--- | :--- |
+| **Correlation (Korelasyon)** | Create a Correlation Matrix to measure the linear relationship between numerical variables. | Relationship between `page_clicks` and `session_duration_seconds`. |
+| **Categorical-Numeric Relationship (Kategorik-Sayısal İlişki)** | View how a categorical variable affects the mean of a numerical variable (Hypothesis Tests or Group Means). | Relationship between `is_transactional` (Your new FE column) and `hotel_price_per_room_night_usd`. |
+| **Visualization (Görselleştirme)** | Use Scatter Plots or Heatmaps to show the relationship between two or three variables. | Distribution of `base_fare_usd` price based on the number of `seats`. |
+
+
+
+# 🛠️ Data Cleaning and Feature Engineering Action Plan
+
+## 🛠️ Data Cleaning and Feature Engineering Action Plan ✨
+
+This table summarizes the identified data quality issues and outlines the mandatory cleaning and transformation actions to be performed on the `df_sessions_clean` DataFrame before model building.
+
+| Column Name | Issue Type / Detection 🔍 | Analysis and Impact 📝 | Proposed Cleaning/Action (Pre-FE) 🧹 | Proposed Feature Engineering (FE) ⚙️ |
+| :--- | :--- | :--- | :--- | :--- |
+| **`nights`** | Anomalous Value (MIN: -2.0) | Negative values are illogical; suggests a Data Entry or Join Error. Must be neutralized. | **Replace Negative Values:** Set all values $< 0$ to `np.nan` (or `NULL`). | After replacing negatives with `NaN`, **Impute remaining `NaN` values with 0** (assuming 0 nights booked). |
+| **`page_clicks`** | High Outliers / Skew (MAX: 566.0, 75th Pctl: 22.0) | Heavily right-skewed distribution. ML models perform better with normalized data. | None (No error detected). | **Apply Log Transformation:** Create `log_page_clicks = log(1 + page_clicks)`. |
+| **`base_fare_usd`** | Anomalously Low (MIN: 2.41) | Extremely low value, potentially a promotion or error. Low impact on cleaning. | None. (Only address if a promotional logic is required). | None (A reasonable Log transformation would handle its distribution). |
+| **`birthdate`** | Requires Conversion | Raw date is not useful for modeling; highly sensitive to distribution. | None. | **Calculate Age:** Create `user_age` (e.g., using 2023-07-28 as reference date). |
+| **`sign_up_date`** | Requires Conversion | Raw date is not useful for modeling; measures time on platform. | None. | **Calculate Tenure:** Create `user_tenure_days` (days since sign-up). |
+| **`session_start/end`** | Requires Calculation | Crucial for understanding user engagement. | None. | **Calculate Session Duration:** Create `session_duration_seconds`. |
+| **`home_airport_lat/lon`** | Requires Calculation | Raw Lat/Lon values are not predictive unless relative to the destination. | None. | **Calculate Distance:** Create `home_to_destination_distance` (Haversine distance). |
+| **`trip_id`** (Missing: 66.1%) | Expected Missingness (NULL) | Missing values indicate sessions not focused on a potential trip/booking. | None. (Discount columns already imputed in STEP 3). | **Create Indicator Feature:** `is_transactional` (1 if `trip_id` is NOT null, 0 otherwise). |
