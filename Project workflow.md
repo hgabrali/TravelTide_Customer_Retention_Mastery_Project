@@ -441,4 +441,19 @@ The primary goal of this stage is to perform a **Group-By Analysis** to calculat
 | **`is_transactional`** (0 vs. 1) | **`log_hotel_price`** | Is the average hotel price significantly higher when a session is transactional? |
 | **`has_flight_discount`** | **`log_page_clicks`** | Do sessions *with* a discount involve more clicks than sessions *without* a discount? |
 
+## 📊 Categorical-Numeric Relationship Analysis Insights 🔎
 
+### 1. Grouped by `is_transactional` (0: Browsing, 1: Transaction-Focused) 🎯
+
+| Metric | Non-Transactional (0) | Transactional (1) | Difference (Factor / % Difference) | Analysis |
+| :--- | :--- | :--- | :--- | :--- |
+| **Avg Log Clicks** | 2.23 | 3.23 | **44% Higher** | **Confirmed:** Transactional sessions contain **44% more** page clicks (browsing effort) compared to non-transactional sessions. |
+| **Avg Session Duration** | 85.12 seconds | 386.04 seconds | **4.5 Times Longer** | **Very Strong Validation:** Transactional sessions last **4.5 times longer** than non-transactional sessions. This indicates that a transaction focus dramatically increases user engagement. |
+| **Avg Log Hotel Price** | NULL | 5.01 | N/A | **Confirmed:** The average price cannot be calculated for non-transactional sessions (NULL). Transactional sessions include hotels with an average price of $e^{5.01} - 1 \approx \$149.3$. |
+
+## 📉 2. Grouped by `has_flight_discount` (Presence of Discount)
+
+| Metric | Discount Applied | No Discount Applied (Missing) | Difference | Analysis |
+| :--- | :--- | :--- | :--- | :--- |
+| **Avg Log Clicks** | 2.57 | Missing | N/A | **Comment:** Only the average for sessions with a discount applied (2.57) was calculated. Seeing the average for sessions without a discount would allow us to understand the indicator's true effect more clearly. |
+| **Avg Session Duration** | 187.25 seconds | Missing | N/A | **Comment:** Sessions with a discount applied last an average of 187 seconds. This duration falls between non-transactional sessions (85s) and transactional sessions (386s). |
