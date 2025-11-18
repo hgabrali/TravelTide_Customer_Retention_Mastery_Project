@@ -234,3 +234,211 @@ Sağlanan istatistiksel özette, bağlamına göre hatalı veya mantıksal olara
 | :--- | :--- | :--- | :--- | :--- |
 | **Avg Log Clicks** | 2.57 | Eksik | N/A | **Yorum:** Sadece indirim uygulanan oturumların ortalaması (2.57) hesaplanmıştır. İndirim uygulanmayan oturumların ortalamasını görmek, bu göstergenin etkisini daha net anlamamızı sağlardı. |
 | **Avg Session Duration** | 187.25 saniye | Eksik | N/A | **Yorum:** İndirim uygulanan oturumlar ortalama 187 saniye sürer. Bu süre, işlemsel olmayan oturumlar (85s) ile işlemsel oturumlar (386s) arasında bir yerde yer alır. |
+
+---
+---
+
+# ⚓ Algoritmik Çapa: İleri Düzey Makine Öğrenimi ile TravelTide İçin Veri Odaklı Müşteri Tutundurma Stratejisi
+
+## 📋 Bölüm I: Temel Değerlendirme: Global OTA Ekosisteminde TravelTide
+
+### 1.1 TravelTide'ın Mevcut Konumu ve Temel Teklifleri 🚀
+
+2023'te kurulan TravelTide, yüksek rekabetli Çevrimiçi Seyahat Acentesi (OTA) pazarında **çevik, fonlanmamış bir giriş** olarak faaliyet göstermektedir.¹ Başlangıç fonu olmaması, şirketin **verimlilik, maliyet yönetimi ve hızlı gelir üretimi** üzerine aşırı odaklanmasını gerektirmektedir. Yaklaşık 243 aktif rakibin bulunduğu bir ortamda, TravelTide'ın stratejisi, **Müşteri Yaşam Boyu Değeri (LTV)** maksimizasyonuna odaklanmalıdır; zira yüksek maliyetli geniş çaplı müşteri edinme (acquisition) kampanyaları finansal olarak sürdürülemezdir. **Üstün müşteri tutundurma (retention) bu nedenle temel bir hayatta kalma mekanizmasıdır.**
+
+| Özellik | Açıklama | Stratejik Gereklilik |
+| :--- | :--- | :--- |
+| **Temel Teknolojik Avantaj** | **Yapay Zekâ (YZ) destekli seyahat güzergâhı oluşturucu**¹ | Platformu, basit bir işlem portalı olmaktan çıkarıp **akıllı bir hizmet sağlayıcı** olarak konumlandırır. |
+| **Birincil Tutundurma Stratejisi** | Temel YZ yeteneğini sistematik olarak kullanarak ödülleri ve hizmet sunumunu **kişiselleştirmelidir**. | Kişiselleştirmenin **ölçeklenebilir, yüksek derecede ilgili ve maliyet-etkin** olmasını sağlar. |
+| **LTV Odaklanma Zorunluluğu** | Rakipler arasındaki başlangıçtaki düşük karşılaştırmalı referans puanı (10/100) ile desteklenir.¹ | Kaynak tahsisi, düşük verimli geniş çaplı edinme çabaları yerine **mevcut kullanıcılardan kârlılığı maksimize etmeye** yönlendirilmelidir. |
+| **Kurumsal DNA** | Kodlanmış amaç, **Reklam ajansları, Pazar araştırması ve İhtisaslaşmış tasarım faaliyetleri** üzerine yoğunlaşmıştır.² | **Titiz veri analizi ve stratejik iletişime** yatkın olup, ML (Makine Öğrenimi) odaklı bir tutundurma stratejisine geçişi kolaylaştırır. |
+
+---
+
+### 1.2 Operasyonel Karmaşıklık ve Verimlilik Gerekliliği ⚙️
+
+TravelTide'ın fonlanmamış durumu, **Operasyonel Karmaşıklığın** titizlikle yönetilmesini gerektirir.¹ Hesaplama yoğunluğu yüksek ML modellerini içeren herhangi bir harcama, **anlık ve ölçülebilir bir Yatırım Getirisi (ROI)** göstermelidir.
+
+| Operasyonel Zorluk | Gereklilik | Tutundurma Etkisi |
+| :--- | :--- | :--- |
+| **Verimlilik Gerekliliği** | Tutundurma stratejisi, genelleştirilmiş pazarlama yerine, başlangıçta **yüksek etkili, yüksek ROI'li öngörüsel analitikleri** hedeflemelidir. | Sadece kârlı segmentlere odaklanarak bütçe optimizasyonu. |
+| **Hizmet Önkoşulu** | **Envanter Yönetiminde Etkinlik** ve harici envanter API'ları ile sağlam **Gerçek Zamanlı Entegrasyon** zorunlu ön koşullardır. | Kullanıcı sürtünmesini (friction) en aza indirmek için doğru fiyatlandırma ve uygunluk sağlar. |
+| **Maliyetten Kaçınma** | Envanter hatalarından kaynaklanan müşteri hizmetleri sorunlarının yüksek operasyonel maliyeti, YZ geliştirme maliyetinden fazladır. | **Kusursuz envanter senkronizasyonu**, rezervasyon terkini önleyen ve müşteri memnuniyetini maksimize eden temel bir gerekliliktir. |
+
+---
+
+### 1.3 Pazar Rolü, Komisyon Erozyonu ve Yüksek Komisyon Dengesi 📉
+
+TravelTide'ın temel **Pazar Rolü**, üstün YZ hizmeti aracılığıyla gezginlerin doğrudan rezervasyon alternatifleri yerine bu platformu seçmesini sağlayacak yeterli algılanan değer yaratmaktır.
+
+| Pazar Dinamiği | Açıklama | Tutundurma Çözümü |
+| :--- | :--- | :--- |
+| **Pazar Rolü Zorluğu** | Tedarikçilerin rekabetçi fiyatlandırma yoluyla doğrudan rezervasyonu teşvik etmesiyle artan **Komisyon Erozyonu** trendi. | Yapay zekâ üstünlüğü ile benzersiz değer teklifleri oluşturmak. |
+| **Hayatta Kalma Stratejisi** | Hayatta kalmak için her işlemde marjı maksimize ederek **Yüksek Komisyon Dengesi** için aktif olarak çabalamalıdır.¹ | Yüksek marjın sürdürülmesini sağlamak. |
+| **Tutundurma Kaldıracı** | Sadık, tekrar eden müşteriler genellikle daha düşük fiyat hassasiyeti gösterir ve **Yan Gelir (Ancillary Revenue)** artışlarına daha açıktır. | Kapsamlı ML tutundurma stratejisi, kârlı ve değer odaklı bir müşteri tabanı yetiştirerek **komisyon erozyonunu doğrudan hafifletir**. |
+
+***
+
+## 💡 Bölüm II: Makro-Ekonomik Dinamikler ve OTA'lardaki Rekabet Kolları
+
+### 2.1 Sofistike Değer Yönetimi ile Fiyatlandırma Çatışmasını Ele Alma 💲
+
+OTA sektöründeki kalıcı **Fiyatlandırma Çatışması**, kullanıcıları çekmek için rekabetçi fiyatlar sunma ile kârlılık için gereken **Yüksek Komisyon Dengesi'ni** sürdürme arasındaki gerilimdir.¹
+
+| Strateji | Mekanizma | Amaç |
+| :--- | :--- | :--- |
+| **ML Odaklı Fiyat Farklılaştırması** | Fiyat kararları, iki öngörücü faktöre göre dinamik, özelleştirilmiş ve optimize edilmelidir: kullanıcının **öngörülen LTV'si**³ ve gösterilen **fiyat hassasiyeti** (özellikle genç gezginlerde yüksek).⁴ | Mümkün olan en yüksek marjla rezervasyonu güvence altına alan dinamik fiyatlandırma uygulamak. |
+| **Uygulama Örneği** | Yüksek LTV'li bir müşteri, maksimum indirim sunulmadan tutundurulabilir; yüksek riskli kayıp (churn) müşterisi, anlık işi ve gelecekteki sadakati güvence altına almak için **hassas hesaplanmış bir indirim** alabilir. |
+
+### 2.2 Dinamik Paketleme ve Yan Gelir Optimizasyonu 📦
+
+YZ güzergâhı oluşturma işlevi, sofistike **Dinamik Paketleme** yapmak için kullanılmalıdır.
+
+| Konsept | Fonksiyon | Kârlılık Etkisi |
+| :--- | :--- | :--- |
+| **Dinamik Paketleme** | Uçuşları, konaklamayı, aktiviteleri ve kara taşımacılığını akıllıca **tescilli paketler** halinde birleştirmek. | Tescilli paketlerin, tedarikçi sitelerindeki bireysel bileşenlerle kolayca fiyat karşılaştırması yapılamayacağı için **marjları korur**. |
+| **Yan Gelir (Ancillary Revenue)** | Kârlılığın hayati bir bileşeni olarak, **yüksek hedefli upsell'ler** için ayrıntılı segmentasyon bulgularını kullanır. | Ailelerin ortalama 0.83 bagaj kontrol etmesi gibi bulgular (**Çapraz Satış Potansiyeli**), premium bagaj hizmetleri veya yüksek marjlı sigorta paketlerinin proaktif olarak entegrasyonunu sağlar. |
+
+### 2.3 Hizmet Genişletme ve Deneyim Geliştirme 🌟
+
+Sürdürülebilir tutundurma, ilk işlemin ötesine geçen değer sağlamayı gerektirir.
+
+| Alan | Odaklanma | Mekanizma/Teknoloji |
+| :--- | :--- | :--- |
+| **Hizmet Genişletme** | **Öngörücü ihtiyaç analizine** yoğunlaşarak çekirdek olmayan gelir akışlarına yol açmak. | Seyahat planlamasından¹ **aktif seyahat içi risk mitigasyonuna** (göçmenlik darboğazları, uçuş gecikme modelleri, vize belgeleri) geçiş.⁵ |
+| **Deneyim Geliştirme** | YZ'nin bir planlama aracından **aktif bir seyahat destek ajansına** kesintisiz geçişi. | Kullanıcı memnuniyetsizliği kaynaklarını ele alarak kayıp (churn) öncesi sorunları öngörmek. |
+
+***
+
+## 🧠 Bölüm III: Veri Odaklı Tutundurma Gerekliliği: TravelTide Müşterisini Tanımlama
+
+### 3.1 Mevcut Müşteri Segmentasyon Analizinin İncelenmesi ve Uygulanabilirliği ✅
+
+TravelTide, 2024'te müşteri segmentasyon analizini başarıyla yürüterek sağlam bir veri temeli oluşturmuştur. Bu çalışma, **müşteri tutundurmayı artırmak** için tasarlanmış özelleştirilmiş bir ödül programının zeminini hazırlamıştır.⁴
+
+| Segment | Uygulanabilir Bulgular | Tutundurma Kampanyası |
+| :--- | :--- | :--- |
+| **Aile Segmenti (%66 otel rezervasyonu)** | **Ücretsiz Kayıtlı Bagaj** ve **Ücretsiz Otel Yemeği** gibi lojistik ayrıcalıklara yüksek değer verirler.⁴ | Daha karmaşık ML modelleri eğitilirken bu kârlı segmenti hedefleyen **kural tabanlı tutundurma kampanyalarının** acil uygulanması. |
+| **Genç/Bütçe Segmenti (15-35 Yaş)** | **Yüksek fiyat hassasiyeti** gösterir (daha düşük ortalama baz ücretler). | **Özel İndirimler** ve esnek bütçe paketlerini vurgulayan özel pazarlama. |
+| **Yaşlı/Konfor Segmenti (55+ Yaş)** | Ortalama baz ücretlerde artış eğilimi gösterir, konfora ve deneyim kalitesine öncelik verirler.⁴ | **Her Şey Dahil paketler** ve premium hizmetler ile hedeflemek için ideal segment. |
+| **Mevcut Proje Çıktısı** | `cancellation_rate`, `total_trips`, `total_hotel_spend` gibi zengin **mühendislik edilmiş özellikler**⁶ sağlar. | LTV/Kayıp tahmininin ilk ML modellerine (Faz I) hemen beslenebilecek yüksek kaliteli girdiler. |
+
+***
+
+### Segment Odaklı Avantajlar ve Yan Gelir Optimizasyonu Tablosu
+
+| Müşteri Segmenti | Birincil Motivasyon/Özellik | Yüksek ROI'li Avantaj Stratejisi | Çapraz Satış / Yan Gelir Odağı |
+| :--- | :--- | :--- | :--- |
+| **Çocuklu Aileler** | Konfor, lojistik kolaylık, maliyet hassasiyeti ⁴ | **Ücretsiz Kayıtlı Bagaj, Ücretsiz Otel Yemeği** ⁴ | Premium koltuk, seyahat sigortası (aile paketleri), transfer hizmetleri. |
+| **Gençler (15-35)** | Fiyat hassasiyeti, bütçe seyahati ⁴ | **Özel İndirimler**, Flaş Satışlar | Bütçe dostu aktiviteler, sırt çantalı gezgin sigortası, hostel yükseltmeleri. |
+| **Yaşlılar (55+)** | Deneyim Geliştirme, konfor ⁴ | **Her Şey Dahil paketler**, Konsiyerj Hizmeti | Lüks turlar, premium dinlenme salonları, uzmanlaşmış tıbbi seyahat sigortası. |
+
+***
+
+## 🤖 Bölüm IV: Öngörücü Tutundurma ve LTV Maksimizasyonu İçin Makine Öğrenimini Kullanma
+
+### 4.1 YZ Merkezi Rolü: Öngörücü Çerçevenin Uygulanması 🧠
+
+YZ Merkezi Rolü, bir güzergâh oluşturma aracından **öngörücü analiz merkezine** dönüşmelidir. Amaç, müşteri davranışını tahmin ederek kaynak tahsisini optimize etmek ve pazar duyarlılığını artırmaktır.⁵
+
+### 4.2 Müşteri Yaşam Boyu Değeri (LTV) Tahmin Modelini Geliştirme 💰
+
+LTV skoru, hedefli fiyatlandırma, pazarlama bütçesi tahsisi ve müşteri desteği önceliklendirmesi için temel metriktir.³
+
+| Bileşen | Açıklama | Önerilen Yaklaşım |
+| :--- | :--- | :--- |
+| **Özellik Mühendisliği** | Yerleşik finansal metrikleri (parasal değer, satın alma sıklığı, müşteri ömrü) ve spesifik davranışsal özellikleri (`cancellation_rate`, `total_trips`, detaylı harcama kalıpları) birleştirmelidir.³ | **Model Seçimi** Topluluk yöntemlerini (Ensemble Methods) desteklemelidir. XGBoost veya birleşik ML boru hatları, hassas değer katmanları atamak için endüstri standardıdır.³ |
+
+### 4.3 Kayıp (Churn) Tahmin Çerçevesi 🛑
+
+Kayıp Tahmin Modeli, tanımlanmış bir zaman ufkunda (örn. 90 gün) yüksek riskli müşterileri belirlemek ve proaktif tutundurma stratejilerini tetiklemek için esastır.
+
+| Strateji | Mekanizma | Müdahale Tetikleyicisi |
+| :--- | :--- | :--- |
+| **Önerilen Model** | **Gradient Boosting Machines (GBM)**, yüksek riskli tahmin görevi için şiddetle tavsiye edilir.⁸ | Kayıp skoru, **Müdahale Tetikleyicilerini** tanımlamalıdır: yüksek riskli, yüksek LTV'li müşteriler, doğrudan konsiyerj erişimi veya ısmarlama **Özel İndirimler** gibi anlık, yüksek değerli tutundurma çabalarını tetiklemelidir.⁴ |
+| **GBM Avantajı** | Satın alma geçmişi ve gerçek zamanlı **tıklama akışı** verileri gibi dağınık özelliklerin entegrasyonu yoluyla karmaşık, doğrusal olmayan ilişkileri yakalamada üstündür.⁸ | Yüksek değerli müşterileri hassas bir şekilde hedefleme ihtiyacı nedeniyle hesaplama yoğunluğunu haklı çıkarır. |
+
+### 4.4 Tutundurma ROI Optimizasyonu ve Hedefli Fiyatlandırma 🎯
+
+Birleşik LTV ve Kayıp skorları, bütçe yeniden tahsisini yönlendiren sürekli bir optimizasyon döngüsü sağlar.³
+
+| Uygulama | Mekanizma | Finansal Sonuç |
+| :--- | :--- | :--- |
+| **ROI Optimizasyonu** | Daha önce genel marka bilinirliğine yönlendirilen pazarlama harcaması, orta-yüksek kayıp riski taşıyan yüksek LTV'li müşterileri güvence altına almak için stratejik olarak yeniden yönlendirilir.³ | Promosyon harcamasının yalnızca öngörülen tutundurma faydasının daha büyük gelecekteki kârlılığı (Yüksek Komisyon Dengesi) sağladığı zaman yapılmasını sağlar. |
+| **Hedefli Fiyatlandırma** | Dinamik fiyatlandırma motoru, bir rezervasyonu güvence altına almak ve müşteriyi tutundurmak için gereken **minimum indirimi** belirlemek için ML çıktısını kullanır. | Promosyon harcamalarının verimliliğini maksimize eder. |
+
+***
+
+### 💻 TravelTide Önerilen ML Model Dağıtımı ve Veri Gereksinimleri
+
+| ML Hedefi 🎯 | Önerilen Model | Gerekli Özellikler (Özellik Mühendisliği) | İş Uygulaması |
+| :--- | :--- | :--- | :--- |
+| **Müşteri Yaşam Boyu Değeri (LTV) Tahmini** | XGBoost, Birleşik Boru Hattı ³ | Parasal Değer, Sıklık, Ömür, Toplam Otel Harcaması ⁶, Demografik Segment.⁴ | Destek ve özel erişim için yüksek değerli müşterilerin önceliklendirilmesi. |
+| **Kayıp Riski Tahmini** 📉 | Gradient Boosting Machines (GBM) ⁸ | İptal Oranı ⁶, Oturum Sıklığı, Avantaj Kullanımı, **Tıklama Akışı Niyet Verisi**. | Anlık, yüksek maliyetli tutundurma müdahalelerini (örn. hedefli indirimler) tetikleme. |
+| **Hiper-Kişiselleştirme Motoru** ✨ | Derin Öğrenme Tavsiye Sistemleri | Tıklama Akışı Verisi, Geçmiş Güzergâh Tercihleri, Gerçek Zamanlı Arama Sorguları. | **Dinamik Paketleme** ve optimize edilmiş **çapraz satış potansiyeli**. |
+
+***
+
+## 🌐 Bölüm V: Hiper-Kişiselleştirme ve Deneyim Geliştirme Çerçevesi
+
+### 5.1 Tavsiye Sistemleri aracılığıyla YZ Destekli Hiper-Kişiselleştirme ✨
+
+TravelTide, bireysel düzeyde **YZ Destekli Hiper-Kişiselleştirme** sağlamak için özel bir **Derin Öğrenme Tavsiye Sistemi (DRS)** uygulamalıdır.
+
+| Mekanizma | Fonksiyon | Örnek | Sonuç |
+| :--- | :--- | :--- | :--- |
+| **DRS Öğrenimi** | Gerçek zamanlı **Tıklama Akışı Verisi** ve geçmiş rezervasyon sonuçlarını analiz ederek yüksek derecede spesifik, ayrıntılı tercihleri öğrenir. | Yüksek LTV'li gezginin (örn. 55+ yaş) premium hizmetleri sürekli olarak güzergahlara dahil ettiğini tespit etmek. | **Proaktif önsezi**, müşteriye derinlemesine anlama gösterir ve anlamlı **Deneyim Geliştirme** sağlar. |
+
+### 5.2 Sadakat Programlarının Evrimi 🏆
+
+Sadakat, işlemsel puan sisteminden uzaklaşarak **öngörücü değere** dayalı bir sisteme geçmelidir.
+
+| Yaklaşım | Tahsis Temeli | Hedef ve Fayda |
+| :--- | :--- | :--- |
+| **LTV Katmanlı Sadakat** | Katmanlar ve ödül tahsisleri, müşterinin **öngörülen gelecek değerine (LTV skoru)** göre belirlenir. | **En yüksek LTV'li müşteriler**, yakın zamandaki rezervasyon geçmişine bakılmaksızın en değerli, **deneyimsel ödülleri** (özel kişisel hizmet yöneticileri, esnek iptal feragatleri) almalıdır. |
+| **Stratejik Hedef** | En yüksek değerli kohortun tutundurulmasına öncelik vererek platformun gelecekteki kârlılığını güvence altına alır. |
+
+### 5.3 Hizmet Genişletme ve Çapraz Satış Potansiyeli (İleri Düzey) ➕
+
+YZ sisteminin öngörücü kapasitesi, seyahat yolculuğundaki potansiyel hizmet boşluklarını belirlemek ve **Yan Gelir** yakalamayı maksimize etmek için kullanılmalıdır.
+
+| Strateji | Tetikleyici Mekanizma | Eylem/Öneri | Fayda |
+| :--- | :--- | :--- | :--- |
+| **İleri Düzey Çapraz Satış** | Rezervasyonun **karmaşıklığını** (örn. karmaşık uluslararası güzergâh) tetikleyici olarak kullanır. | Özel seyahat sigortası, yerel kara taşımacılığı veya gerekli vize işlemleri için proaktif, **YZ destekli uyarılar** ve öneriler sağlar. | Müşteri bağlılığını artırır ve **Yan Gelir** yakalamayı maksimize eder. |
+
+### 5.4 Rezervasyon Sonrası Deneyim Geliştirme 📞
+
+Tutundurma, rezervasyon sonrası ve seyahat içi aşamalarda güvence altına alınır veya kaybedilir.
+
+| Girişim | Mekanizma | Stratejik Amaç | Tutundurma Kolu |
+| :--- | :--- | :--- | :--- |
+| **Akıllı Müşteri Hizmetleri** | Rutin sorguları çözmek için YZ kullanımı. | Operasyonel verimliliği artırmak ve maliyetleri düşürmek.⁵ | |
+| **Müşteri Desteği Önceliklendirmesi** | Uzmanlaşmış insan destek kaynakları, stratejik olarak **yüksek LTV'li müşteriler** ve **yüksek riskli** müşteriler için ayrılır.³ | Platformun en değerli kullanıcılarının **özel, hızlandırılmış destek** almasını sağlar; güçlü, parasal olmayan bir tutundurma kaldıracıdır. |
+
+***
+
+## 🛣️ Bölüm VI: Stratejik Yol Haritası ve YZ Destekli Hizmetlerin Uygulanması
+
+### 6.1 Aşamalı Veri Altyapısı Gereksinimleri 💾
+
+| Aşama | Zaman Çizelgesi | Temel Amaç | Kritik Çıktı |
+| :--- | :--- | :--- | :--- |
+| **Faz I: Veri Merkezileştirme** | 0–6 Ay | SQL ile çıkarılmış işlemsel verileri ve ilk **Tıklama Akışı** veri akışlarını entegre etmek için sağlam bir veri ortamı oluşturmak. | İlk LTV ve Kayıp modelleri için **özellik tanım kümesini** resmileştirmek.⁶ |
+| **Faz II: Öngörücü Model Geliştirme ve Dağıtım** | 6–18 Ay | Basitleştirilmiş LTV ve Kayıp tahmin modellerini (örn. XGBoost) geliştirmek ve dağıtmak. | **Merkezileştirilmiş Özellik Mağazası (Feature Store)** kurmak; gerçek zamanlı fiyatlandırma müdahaleleri için gerekli olan yüksek model doğruluğunu ve ölçeklenebilirliği sağlamak. |
+
+### 6.2 Kurumsal Uyum ve Veri Yönetişimi 🧑‍💻
+
+| Alan | Gereklilik | Gerekçe / Risk Azaltma |
+| :--- | :--- | :--- |
+| **Yetenek Kazanımı** | Topluluk yöntemlerinde (GBM/XGBoost) uzmanlaşmış **Veri Bilimcileri**⁸ ve modelleri üretim ortamında konuşlandıracak **ML Mühendisleri'nin** öncelikli olarak işe alınması. | Karmaşık, öngörücü analitik sistemleri dağıtmak için zorunludur. |
+| **Veri Yönetişimi** | YZ'nin fiyatlandırma ve tavsiye sistemlerindeki kullanımı konusunda şeffaflık ve veri gizliliğini sağlamak için açık protokoller oluşturmak. | **Algoritmik önyargı** ve kullanıcı güveni eksikliği gibi endüstriyel zorlukları önleyerek kullanıcı sadakatini teşvik etmek.⁵ |
+
+### 6.3 Temel Performans Göstergeleri (KPI) ve Ölçüm Çerçevesi 📈
+
+Bu veri odaklı stratejinin başarısı, gelecekteki kârlılık ve öngörücü doğruluk üzerindeki etkisiyle ölçülecektir.
+
+| Çekirdek Ölçüm Metriği | Tanım | Stratejik Amaç |
+| :--- | :--- | :--- |
+| **LTV/CAC Oranı** | Birincil kârlılık metriği. | Tutundurma yatırımlarının müşteri edinme maliyetlerine göre verimliliğini doğrulamak. |
+| **Öngörülen Kayıp Oranı Doğruluğu** | Öngörücü modellerin doğrulanması: tahmin edilen kayıp ile gerçekleşen müşteri kaybının karşılaştırılması. | **Hassas kaynak hedeflemesini** ve yüksek model güvenilirliğini sağlamak. |
+| **Müdahale ROI'si** | Tutundurma müdahalelerinin maliyetine karşılık sağlanan finansal getiriyi (güvence altına alınan gelecek LTV) izlemek. | Bütçe yeniden tahsisinin verimliliğini teyit etmek. |
