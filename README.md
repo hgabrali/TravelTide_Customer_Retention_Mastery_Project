@@ -70,5 +70,4 @@ In each of the four weeks, we will get one step further in our goal to help Elen
 
  [Data Science Toolkit Comparison and Project Functionality](https://github.com/hgabrali/TravelTide_Customer_Retention_Mastery_Project/blob/main/Project%20workflow.md)
 
-# SILMEYI UNUTMA BU GÖRSELI:
-<img width="631" height="425" alt="image" src="https://github.com/user-attachments/assets/031fa417-4f99-4475-a6ce-f18f4be1902d" />
+
