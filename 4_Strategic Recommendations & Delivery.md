@@ -42,3 +42,25 @@ This section defines the rigorous measurement framework (A/B Test) required to p
 | **Primary KPI** | **Perk Sign-up Rate (Conversion)** | The primary measure of the strategy's success. We expect a statistically significant **Lift Analysis** in the targeted group's conversion rate. |
 | **Secondary KPIs** | **Customer Retention Rate** (Post-Sign-up), **Average Order Value (AOV)**, and **Future Cancellation Rate** (Segment-specific). | These metrics validate the long-term impact on **Customer Lifetime Value (CLV)** and risk mitigation. |
 | **Feature Integration** | Incorporating Marital Status and Discount Sensitivity into the predictive feature space. | Using these insights to refine the **Cancellation Probability Model** and **LTV Model** for ongoing strategic optimization. |
+
+# ✅ Conclusion & Key Takeaways
+
+This section summarizes the project's critical findings and defines the strategic roadmap for implementation and success measurement.
+
+---
+
+## 1. Key Project Takeaways 💡
+
+| Finding | Interpretation | Strategic Value |
+| :--- | :--- | :--- |
+| **Hypothesis Validated** | Analysis confirms **distinct, actionable customer segments** based on statistically significant differences in discount sensitivity, product preference, and cancellation risk. | Provides the core foundation for **personalized marketing**. |
+| **Feature Engineering Success** | Established a foundation of **portfolio-ready derived metrics** (e.g., Total Clicks, Discount Sensitivity Score) for robust **ML-based segmentation**. | Ensures the segmentation model is **predictive and reliable**. |
+| **Segment-Driven Strategy** | **Optimal Perk Assignment** directly incorporates insights like **2x higher cancellation risk** among Unmarried users. | Mitigates future revenue exposure and **optimizes resource allocation**. |
+
+---
+
+## 2. Strategic Next Steps 🚀
+
+* **Launch A/B Test:** Deploy the **Targeted Perk Assignment Strategy** immediately to measure real-world impact.
+* **Primary KPI:** Track **statistically significant Lift** in the **Perk Sign-up Conversion Rate** (CRO).
+* **Model Integration (Future Work):** Integrate key features (e.g., Marital Status) to refine the **Cancellation Probability Model** and **Customer Lifetime Value (CLV) Framework**.
