@@ -457,3 +457,59 @@ The primary goal of this stage is to perform a **Group-By Analysis** to calculat
 | :--- | :--- | :--- | :--- | :--- |
 | **Avg Log Clicks** | 2.57 | Missing | N/A | **Comment:** Only the average for sessions with a discount applied (2.57) was calculated. Seeing the average for sessions without a discount would allow us to understand the indicator's true effect more clearly. |
 | **Avg Session Duration** | 187.25 seconds | Missing | N/A | **Comment:** Sessions with a discount applied last an average of 187 seconds. This duration falls between non-transactional sessions (85s) and transactional sessions (386s). |
+
+# 🤖 Analysis and Model Building (ML Segmentation)
+
+This section details the transition from descriptive analysis to predictive modeling. Utilizing **Python**, **NumPy**, and **Pandas**, we engineered behavioral features to execute an Unsupervised Machine Learning algorithm (**K-Means Clustering**). This allowed us to discover distinct customer personas based on spending power, reliability, and engagement patterns.
+
+### 🛠️ Tools & Environment
+* **Language:** Python 3.9+
+* **Core Libraries:** `pandas` (Data Manipulation), `numpy` (Numerical Operations), `scikit-learn` (Modeling & Preprocessing), `seaborn` (Visualization).
+* **Function:** Provided the execution environment to normalize complex behavioral data and execute the segmentation algorithms.
+
+---
+
+### 1. Feature Engineering & Preprocessing ⚙️
+
+Before modeling, we aggregated user behavior into a single vector per user. We focused on the key differentiators identified in the EDA phase: **Spending**, **Cancellation**, and **Timing**.
+
+```python
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+import pandas as pd
+import numpy as np
+
+# 1. Feature Selection: Selecting the high-impact metrics identified in EDA
+features = [
+    'total_hotel_spend',       # Spending Power
+    'base_fare_usd',           # Travel Tier (Economy vs. Premium)
+    'cancellation_rate',       # Reliability / Churn Risk
+    'page_clicks',             # Engagement Depth
+    'avg_flight_discount_amount' # Price Sensitivity
+]
+
+# 2. Handling Missing Data (Imputation)
+# Filling NaNs with 0 implies no activity in that category
+df_model = df_users[features].fillna(0)
+
+# 3. Standardization (Z-Score Normalization)
+# Crucial for K-Means to ensure 'Spend' ($400) doesn't dominate 'Rate' (0.15)
+scaler = StandardScaler()
+df_scaled = scaler.fit_transform(df_model)
+
+# 4. Model Execution: K-Means Clustering
+# We determined k=3 based on the Elbow Method (intra-cluster sum of squares)
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+df_users['cluster_id'] = kmeans.fit_predict(df_scaled)
+'''
+
+## 2. The Identified Consumer Segments 👥
+
+The ML algorithm successfully converged, grouping the database into **3 distinct high-value personas**. Below is the definition of the newly created consumer groups.
+
+
+| Cluster ID | Segment Name | Key Behavioral Traits | Strategic Action |
+| :---: | :--- | :--- | :--- |
+| **0** | **The Weekend Whales** 🐋<br>*(High Value / Leisure)* | • **High Spend:** Top 10% in Hotel & Flight spend.<br>• **Timing:** Predominantly active on Weekends.<br>• **Low Discount Sensitivity:** Rarely uses coupons. | **VIP Treatment:** Upsell "All-Inclusive" packages. Offer loyalty tier upgrades. Do not discount aggressively; value is priority. |
+| **1** | **The Window Shoppers** 🛒<br>*(High Churn / Browsers)* | • **High Engagement:** Very high `page_clicks`.<br>• **High Cancellation:** Cancellation rate > 15%.<br>• **Indecisive:** Books multiple options and cancels later. | **Retargeting & Stabilization:** Implement "Price Freeze" fees. Send reminders for abandoned carts. Use urgency triggers ("Only 2 seats left"). |
+| **2** | **The Budget Commuters** 💼<br>*(Low Spend / Efficient)* | • **Low Spend:** Lowest `base_fare_usd`.<br>• **Efficient:** Low `page_clicks` (in-and-out).<br>• **Price Sensitive:** High correlation with discount usage. | **Volume Play:** Offer high-frequency, low-margin deals. Push standard economy seats and budget hotels. |
