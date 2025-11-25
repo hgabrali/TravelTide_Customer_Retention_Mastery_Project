@@ -467,9 +467,26 @@ This section details the transition from descriptive analysis to predictive mode
 * **Core Libraries:** `pandas` (Data Manipulation), `numpy` (Numerical Operations), `scikit-learn` (Modeling & Preprocessing), `seaborn` (Visualization).
 * **Function:** Provided the execution environment to normalize complex behavioral data and execute the segmentation algorithms.
 
+
+
+## The Identified Consumer Segments 
+
+The ML algorithm successfully converged, grouping the database into **3 distinct high-value personas**. Below is the definition of the newly created consumer groups.
+
+
+| Cluster ID | Segment Name | Key Behavioral Traits | Strategic Action |
+| :---: | :--- | :--- | :--- |
+| **0** | **The Weekend Whales** 🐋<br>*(High Value / Leisure)* | • **High Spend:** Top 10% in Hotel & Flight spend.<br>• **Timing:** Predominantly active on Weekends.<br>• **Low Discount Sensitivity:** Rarely uses coupons. | **VIP Treatment:** Upsell "All-Inclusive" packages. Offer loyalty tier upgrades. Do not discount aggressively; value is priority. |
+| **1** | **The Window Shoppers** 🛒<br>*(High Churn / Browsers)* | • **High Engagement:** Very high `page_clicks`.<br>• **High Cancellation:** Cancellation rate > 15%.<br>• **Indecisive:** Books multiple options and cancels later. | **Retargeting & Stabilization:** Implement "Price Freeze" fees. Send reminders for abandoned carts. Use urgency triggers ("Only 2 seats left"). |
+| **2** | **The Budget Commuters** 💼<br>*(Low Spend / Efficient)* | • **Low Spend:** Lowest `base_fare_usd`.<br>• **Efficient:** Low `page_clicks` (in-and-out).<br>• **Price Sensitive:** High correlation with discount usage. | **Volume Play:** Offer high-frequency, low-margin deals. Push standard economy seats and budget hotels. |
+
+
+
+
 ---
 
 ### 1. Feature Engineering & Preprocessing ⚙️
+
 
 Before modeling, we aggregated user behavior into a single vector per user. We focused on the key differentiators identified in the EDA phase: **Spending**, **Cancellation**, and **Timing**.
 
@@ -505,15 +522,3 @@ df_users['cluster_id'] = kmeans.fit_predict(df_scaled)
 
 
 
-
-
-## 2. The Identified Consumer Segments 👥
-
-The ML algorithm successfully converged, grouping the database into **3 distinct high-value personas**. Below is the definition of the newly created consumer groups.
-
-
-| Cluster ID | Segment Name | Key Behavioral Traits | Strategic Action |
-| :---: | :--- | :--- | :--- |
-| **0** | **The Weekend Whales** 🐋<br>*(High Value / Leisure)* | • **High Spend:** Top 10% in Hotel & Flight spend.<br>• **Timing:** Predominantly active on Weekends.<br>• **Low Discount Sensitivity:** Rarely uses coupons. | **VIP Treatment:** Upsell "All-Inclusive" packages. Offer loyalty tier upgrades. Do not discount aggressively; value is priority. |
-| **1** | **The Window Shoppers** 🛒<br>*(High Churn / Browsers)* | • **High Engagement:** Very high `page_clicks`.<br>• **High Cancellation:** Cancellation rate > 15%.<br>• **Indecisive:** Books multiple options and cancels later. | **Retargeting & Stabilization:** Implement "Price Freeze" fees. Send reminders for abandoned carts. Use urgency triggers ("Only 2 seats left"). |
-| **2** | **The Budget Commuters** 💼<br>*(Low Spend / Efficient)* | • **Low Spend:** Lowest `base_fare_usd`.<br>• **Efficient:** Low `page_clicks` (in-and-out).<br>• **Price Sensitive:** High correlation with discount usage. | **Volume Play:** Offer high-frequency, low-margin deals. Push standard economy seats and budget hotels. |
