@@ -503,6 +503,10 @@ kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 df_users['cluster_id'] = kmeans.fit_predict(df_scaled)
 '''
 
+
+
+
+
 ## 2. The Identified Consumer Segments 👥
 
 The ML algorithm successfully converged, grouping the database into **3 distinct high-value personas**. Below is the definition of the newly created consumer groups.
