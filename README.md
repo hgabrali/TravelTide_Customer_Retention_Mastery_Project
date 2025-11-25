@@ -70,4 +70,45 @@ In each of the four weeks, we will get one step further in our goal to help Elen
 
  [Data Science Toolkit Comparison and Project Functionality](https://github.com/hgabrali/TravelTide_Customer_Retention_Mastery_Project/blob/main/Project%20workflow.md)
 
+ # ✈️ Travel Booking Analytics: Behavioral Segmentation & ML
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue) ![Library](https://img.shields.io/badge/Library-Pandas%20%7C%20Scikit--Learn-orange) ![Status](https://img.shields.io/badge/Status-Completed-green)
+
+
+
+## 📋 Project Overview
+This repository hosts an end-to-end data analysis and machine learning pipeline designed to optimize revenue strategies for a digital travel booking platform. By analyzing **49,000+ user sessions**, this project moves beyond simple descriptive statistics to uncover deep behavioral patterns.
+
+The core objective was to answer two critical business questions:
+1.  **Temporal Dynamics:** How does user value and reliability shift between Weekdays and Weekends?
+2.  **Customer Personas:** Can we use Unsupervised Machine Learning to identify and group high-value users?
+
+## 🛠️ Tech Stack
+* **Data Manipulation:** `Pandas`, `NumPy`
+* **Machine Learning:** `Scikit-Learn` (K-Means Clustering, StandardScaler)
+* **Visualization:** `Seaborn`, `Matplotlib`
+* **Statistical Testing:** T-Tests (SciPy)
+
+---
+
+## 💡 Executive Summary & Key Results
+
+Through rigorous EDA and Feature Engineering, we transformed raw transactional data into actionable business intelligence.
+
+### 1. The "Weekend Effect" (Temporal Analysis)
+Our analysis revealed that **Weekends** are the prime window for revenue generation, but they come with higher volatility.
+* **Spending Power:** Users spend **+30% more** on hotels and **+21% more** on flights during the weekend.
+* **Engagement:** Weekend sessions show significantly deeper research behavior (**+43%** higher page clicks).
+* **Risk:** However, the cancellation rate spikes to **15%** on weekends (vs. 9% on weekdays), indicating impulsive behavior.
+
+### 2. ML Segmentation (K-Means Clustering)
+We successfully deployed a K-Means algorithm to classify the user base into 3 distinct personas:
+* 🐋 **The Weekend Whales:** High-spend, leisure-focused users who book premium inventory.
+* 🛒 **The Window Shoppers:** High-engagement but high-churn browsers (primary targets for retargeting).
+* 💼 **The Budget Commuters:** Low-spend, efficiency-focused users sensitive to discounts.
+
+> **Business Impact:** These insights allow for dynamic pricing strategies, personalized UI experiences, and targeted churn-prevention flows based on the day of the week and user cluster.
+
+---
+
 
