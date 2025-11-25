@@ -17,7 +17,7 @@
 
 # ⚓ The Algorithmic Anchor: A Data-Driven Customer Retention Strategy for TravelTide Leveraging Advanced Machine Learning
 
-## 📝 Section I: Foundational Assessment: TravelTide in the Global OTA Ecosystem
+## 📝 Section I: Foundational Assessment: TravelTide in the Global OTA Ecosystem 
 
 ### 1.1 TravelTide’s Current Positioning and Core Offerings 🚀
 
