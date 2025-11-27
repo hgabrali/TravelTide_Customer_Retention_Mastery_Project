@@ -111,4 +111,4 @@ We successfully deployed a K-Means algorithm to classify the user base into 3 di
 
 ---
 
-
+### * The presentation video is to be included at a later stage.
