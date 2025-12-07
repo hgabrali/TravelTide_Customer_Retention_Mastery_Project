@@ -112,3 +112,23 @@ We successfully deployed a K-Means algorithm to classify the user base into 3 di
 ---
 
 ### * [The presentation video]( will be uploaded)
+
+## 📁 Repository Structure
+
+The project directory is organized to follow the data science workflow sequentially:
+
+```text
+retail-sales-forecasting/
+├── 01_data/               # Raw and processed data (Note: Large files are gitignored)
+│   ├── raw/               # Original datasets (train.csv, oil.csv, etc.)
+│   └── processed/         # Cleaned data ready for modeling
+├── 02_notebooks/          # Jupyter Notebooks for analysis and modeling
+│   ├── 01_data_prep.ipynb
+│   ├── 02_eda.ipynb
+│   └── 03_model_training.ipynb
+├── 03_scripts/            # Helper Python scripts and utility functions
+├── 04_reports/            # Generated analysis reports and figures
+└── 05_output/             # Final model predictions and submission files
+├── README.md              # Project documentation
+├── requirements.txt       # Project dependencies
+└── .gitignore             # Files to exclude from Git
